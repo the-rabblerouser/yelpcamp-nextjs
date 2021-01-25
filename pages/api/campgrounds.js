@@ -16,6 +16,7 @@ export default async (req, res) => {
 
 				res.json(campgrounds);
 			} catch (error) {
+				expect(error).toBeNull();
 				res.status(400).json({ success: false });
 			}
 			break;
