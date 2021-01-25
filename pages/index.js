@@ -6,10 +6,11 @@ import useSWR from 'swr';
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function Home() {
-  const { data, error } = useSWR('/api/hello', fetcher);
+  const { data, error } = useSWR('/api/campgrounds', fetcher);
 
   if (error) return <div>failed to load</div>;
   if (!data) return <div>loading...</div>;
+  console.log(data)
   return (
     <div className={styles.container}>
       <Head>
@@ -18,11 +19,10 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          {data.name}
-        </h1>
+           <h1 className={styles.title}>
+              {data[0].title}
+           </h1>
       </main>
-
     </div>
   );
 }

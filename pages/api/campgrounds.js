@@ -1,22 +1,38 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-const mongoose = require('mongoose');
+import { connectToDatabase } from "../../utils/mongodb";
 
-mongoose.connect = ('mongodb://localhost:27017/yelp-camp',
-{
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useUnifiedTopology: true,
-}
-);
+export default async (req, res) => {
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", () => {
-  console.log("Database Connected");
-});
+  const { method } = req
+  const { db } = await connectToDatabase();
 
-export default (req, res) => {
-  res.statusCode = 200;
-  res.json({ name: 'Bob' });
-
+  switch (method){
+    case 'GET':
+      try {
+        const campgrounds = await db
+        .collection("campgrounds")
+        .find({})
+        .sort({ metacritic: -1 })
+        .limit(20)
+        .toArray();
+    
+      res.json(campgrounds);
+      } catch (error) {
+        res.status(400).json({ success: false })
+      }
+      break
+      case 'POST':
+        try {
+          // const campgrounds = await db
+          // .collection("campgrounds")
+          // .find({})
+          // .sort({ metacritic: -1 })
+          // .limit(20)
+          // .toArray();
+      
+        res.json(campgrounds);
+        } catch (error) {
+          res.status(400).json({ success: false })
+        }
+  }
 };
+
