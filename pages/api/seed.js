@@ -8,13 +8,13 @@ export default async (req, res) => {
 	const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 	try {
-		//!!!WARNING!!!
-		// !!!Uncommenting will remove all data in seed data base!!!
+		//**************************!!!WARNING!!!*******************************
+		// !!!Uncommenting will remove all data in seed database!!!
 
 		// const remove_data = await db.collection('campgrounds').deleteMany();
 		// res.send(remove_data);
 
-		// **********************************************************************
+		// *********************************************************************
 
 		for (let i = 0; i < 50; i++) {
 			const random1000 = Math.floor(Math.random() * 1000);
