@@ -20,18 +20,20 @@ export default async (req, res) => {
 				res.status(400).json({ success: false });
 			}
 			break;
-		case 'POST':
-			try {
-				// const campgrounds = await db
-				// .collection("campgrounds")
-				// .find({})
-				// .sort({ metacritic: -1 })
-				// .limit(20)
-				// .toArray();
 
-				res.json(campgrounds);
-			} catch (error) {
-				res.status(400).json({ success: false });
-			}
+		// Test for POST Route
+		// case 'GET':
+		// 	try {
+		// 		const campgrounds = await db.collection('campgrounds').insert({
+		// 			title: 'Camp Bob',
+		// 			price: '$20',
+		// 			description: 'This is a camp for people',
+		// 			location: 'home',
+		// 		});
+
+		// 		res.send(campgrounds);
+		// 	} catch (error) {
+		// 		res.status(400).json({ success: false });
+		// 	}
 	}
 };
