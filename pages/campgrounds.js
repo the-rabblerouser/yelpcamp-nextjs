@@ -10,11 +10,10 @@ export default function Campgrounds() {
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
-	console.log(data);
 	return (
 		<div>
 			<h1>{data[0].title}</h1>
-			{data.map(({ _id, title, location }) => {
+			{data.map(({ _id, title }) => {
 				return (
 					<ul key={_id}>
 						<li className={styles.listItem}>
