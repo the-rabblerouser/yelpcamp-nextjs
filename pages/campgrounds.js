@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import styles from '../styles/campgrounds.module.css';
 
 import useSWR from 'swr';
@@ -13,10 +14,14 @@ export default function Campgrounds() {
 	return (
 		<div>
 			<h1>{data[0].title}</h1>
-			{data.map(({ title }) => {
+			{data.map(({ _id, title, location }) => {
 				return (
-					<ul>
-						<li className={styles.listItem}>{title}</li>
+					<ul key={_id}>
+						<li className={styles.listItem}>
+							<Link href="/campground/[id]" as={`/campground/${title}`}>
+								<a>{title}</a>
+							</Link>
+						</li>
 					</ul>
 				);
 			})}
