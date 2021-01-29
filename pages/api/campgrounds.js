@@ -10,7 +10,7 @@ export default async (req, res) => {
 				const campgrounds = await db
 					.collection('campgrounds')
 					.find({})
-					.sort({ metacritic: -1 })
+					.sort()
 					.limit(20)
 					.toArray();
 
