@@ -12,7 +12,11 @@ export default function Campgrounds() {
 	if (!data) return <div>loading...</div>;
 	return (
 		<div>
-			<h1>{data[0].title}</h1>
+			<div>
+				<Link href="/">
+					<h1>{data[0].title}</h1>
+				</Link>
+			</div>
 			{data.map(({ _id, title }) => {
 				return (
 					<ul key={_id}>
