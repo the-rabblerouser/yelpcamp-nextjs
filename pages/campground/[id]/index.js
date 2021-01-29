@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 import useSwr from 'swr';
@@ -16,8 +17,14 @@ const campground = () => {
 	if (!data) return <div>loading...</div>;
 	return (
 		<>
-			<h1>{data[0].title}</h1>
-			<h2>{data[0].location}</h2>
+			<div>
+				<Link href="/campgrounds">
+					<h1>{data[0].title}</h1>
+				</Link>
+			</div>
+			<div>
+				<h2>{data[0].location}</h2>
+			</div>
 		</>
 	);
 };
