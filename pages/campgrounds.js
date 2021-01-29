@@ -14,7 +14,9 @@ export default function Campgrounds() {
 		<div>
 			<div>
 				<Link href="/">
-					<h1>{data[0].title}</h1>
+					<a>
+						<h1>{data[0].title} Campgrounds</h1>
+					</a>
 				</Link>
 			</div>
 			{data.map(({ _id, title }) => {

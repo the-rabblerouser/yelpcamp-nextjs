@@ -1,6 +1,8 @@
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 
+import styles from '../../../styles/campground.module.css';
+
+import { useRouter } from 'next/router';
 import useSwr from 'swr';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -19,7 +21,9 @@ const campground = () => {
 		<>
 			<div>
 				<Link href="/campgrounds">
-					<h1>{data[0].title}</h1>
+					<a>
+						<h1>{data[0].title}</h1>
+					</a>
 				</Link>
 			</div>
 			<div>
