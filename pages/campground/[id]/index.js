@@ -29,6 +29,15 @@ const campground = () => {
 			<div>
 				<h2>{data[0].location}</h2>
 			</div>
+			<div>
+				<button>
+					<Link
+						href={`/campground/${[router.query.id]}/edit`}
+						as={`/campground/${router.query.id}/edit`}>
+						<a>Edit</a>
+					</Link>
+				</button>
+			</div>
 		</>
 	);
 };
