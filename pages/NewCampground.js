@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const NewCampground = () => {
+	const router = useRouter();
 	const [title, setTitle] = useState('');
 	const [location, setLocation] = useState('');
 
@@ -26,6 +28,7 @@ const NewCampground = () => {
 		});
 		setTitle('');
 		setLocation('');
+		router.push('/');
 	};
 
 	return (
@@ -50,7 +53,7 @@ const NewCampground = () => {
 					/>
 				</div>
 				<div>
-					<button>Add Campground</button>
+					<button>Add Campgrounds</button>
 				</div>
 			</form>
 		</div>
