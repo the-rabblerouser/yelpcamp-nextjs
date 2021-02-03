@@ -22,9 +22,17 @@ export default function Home() {
 			<main className={styles.main}>
 				<h1 className={styles.title}>{data[0].title}</h1>
 				<br />
-				<Link href="/campgrounds" as={`/campgrounds`}>
-					<a>Campgrounds</a>
-				</Link>
+				<div>
+					<Link href="/campgrounds" as={`/campgrounds`}>
+						<a>View Campgrounds</a>
+					</Link>
+				</div>
+				<br />
+				<div>
+					<Link href="/NewCampground" as={`/newcampground`}>
+						<a>Create a Campground</a>
+					</Link>
+				</div>
 			</main>
 		</div>
 	);
