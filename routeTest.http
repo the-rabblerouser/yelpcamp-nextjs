@@ -8,8 +8,3 @@ GET http://localhost:3000/api/campground/ HTTP/1.1
 
 POST http://localhost:3000/campgrounds HTTP/1.1
 content-type: application/json
-
-<request>
-    <title></title>
-    <location></location>
-</request>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const NewCampground = () => {
 	const [title, setTitle] = useState('');
@@ -12,25 +13,24 @@ const NewCampground = () => {
 		return setLocation(e.target.value);
 	};
 
-	const handleSubmit = () => {
-		let dataBody = {
-			location,
-			title,
-		};
-		return fetch('/api/campgrounds', {
-			method: 'POST',
-			body: JSON.stringify(dataBody),
-			headers: {
-				'Content-Type': 'application/json',
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		axios({
+			method: 'post',
+			url: '/api/campgrounds',
+			data: {
+				location: location,
+				title: title,
 			},
-		})
-			.then((res) => res.json())
-			.then((data) => console.log(data));
+		});
+		setTitle('');
+		setLocation('');
 	};
 
 	return (
 		<div>
-			<form>
+			<form onSubmit={handleSubmit}>
 				<div>
 					<input
 						type="text"
@@ -50,7 +50,7 @@ const NewCampground = () => {
 					/>
 				</div>
 				<div>
-					<button onSubmit={handleSubmit}>Add Campground</button>
+					<button>Add Campground</button>
 				</div>
 			</form>
 		</div>
