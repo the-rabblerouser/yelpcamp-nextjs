@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "mongoose": "^5.11.11",
     "next": "10.0.5",
     "react": "17.0.1",

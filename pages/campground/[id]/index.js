@@ -1,5 +1,8 @@
-import { useRouter } from 'next/router';
+import Link from 'next/link';
 
+import styles from '../../../styles/campground.module.css';
+
+import { useRouter } from 'next/router';
 import useSwr from 'swr';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -16,8 +19,16 @@ const campground = () => {
 	if (!data) return <div>loading...</div>;
 	return (
 		<>
-			<h1>{data[0].title}</h1>
-			<h2>{data[0].location}</h2>
+			<div>
+				<Link href="/campgrounds">
+					<a>
+						<h1>{data[0].title}</h1>
+					</a>
+				</Link>
+			</div>
+			<div>
+				<h2>{data[0].location}</h2>
+			</div>
 		</>
 	);
 };

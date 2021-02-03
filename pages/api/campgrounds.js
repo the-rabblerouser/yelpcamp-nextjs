@@ -11,7 +11,7 @@ export default async (req, res) => {
 					.collection('campgrounds')
 					.find({})
 					.sort()
-					.limit(20)
+					.limit(500)
 					.toArray();
 
 				res.json(campgrounds);
@@ -20,19 +20,17 @@ export default async (req, res) => {
 			}
 			break;
 
-		// Test for POST Route
-		// case 'GET':
-		// 	try {
-		// 		const campgrounds = await db.collection('campgrounds').insert({
-		// 			title: 'Camp Bob',
-		// 			price: '$20',
-		// 			description: 'This is a camp for people',
-		// 			location: 'home',
-		// 		});
+		case 'POST':
+			try {
+				const campgrounds = await db.collection('campgrounds').insert({
+					title: req.body.title,
+					location: req.body.location,
+				});
 
-		// 		res.send(campgrounds);
-		// 	} catch (error) {
-		// 		res.status(400).json({ success: false });
-		// 	}
+				res.send(campgrounds);
+			} catch (error) {
+				res.status(400).json({ success: false });
+			}
+			break;
 	}
 };
