@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import axios from 'axios';
 
 import styles from '../../../styles/campground.module.css';
 
@@ -9,6 +10,21 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const campground = () => {
 	const router = useRouter();
+
+	const handleDelete = (e) => {
+		e.preventDefault();
+
+		axios({
+			method: 'delete',
+			url: `/api/campground/${router.query.id}`,
+			data: {
+				_id: router.query.id,
+				location: data[0].location,
+				title: data[0].title,
+			},
+		});
+		router.push('/campgrounds');
+	};
 
 	const { data, error } = useSwr(
 		router.query.id ? `/api/campground/${router.query.id}` : null,
@@ -37,6 +53,11 @@ const campground = () => {
 						<a>Edit</a>
 					</Link>
 				</button>
+			</div>
+			<div>
+				<form onSubmit={handleDelete}>
+					<button>Delete</button>
+				</form>
 			</div>
 		</>
 	);
