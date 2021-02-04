@@ -25,7 +25,7 @@ export default function Campgrounds() {
 						<li className={styles.listItem}>
 							<Link href={`/campground/[$_id]`} as={`/campground/${_id}`}>
 								<a>{title}</a>
-							</Link>
+							</Link>{' '}
 						</li>
 					</ul>
 				);
