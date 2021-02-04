@@ -19,18 +19,21 @@ const Edit = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		if (!title && !location) {
+			return alert('You must enter a new title and location');
+		}
 		axios({
 			method: 'put',
-			url: '/api/campground/[id]',
+			url: `/api/campground/${router.query.id}`,
 			data: {
+				_id: router.query.id,
 				location: location,
 				title: title,
 			},
 		});
 		setTitle('');
 		setLocation('');
-		router.push('/');
+		router.push('/campgrounds');
 	};
 
 	const fetcher = (url) => fetch(url).then((res) => res.json());

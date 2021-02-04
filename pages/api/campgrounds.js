@@ -32,5 +32,8 @@ export default async (req, res) => {
 				res.status(400).json({ success: false });
 			}
 			break;
+		default:
+			res.setHeader('Allow', ['GET', 'POST']);
+			res.status(405).end(`Method ${method} Not Allowed`);
 	}
 };

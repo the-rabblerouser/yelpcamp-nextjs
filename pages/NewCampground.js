@@ -29,6 +29,7 @@ const NewCampground = () => {
 		setTitle('');
 		setLocation('');
 		router.push('/');
+		console.log(data);
 	};
 
 	return (
