@@ -1,8 +1,10 @@
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const NewCampground = () => {
+import { useRouter } from 'next/router';
+import useSwr from 'swr';
+
+const Edit = () => {
 	const router = useRouter();
 	const [title, setTitle] = useState('');
 	const [location, setLocation] = useState('');
@@ -17,20 +19,32 @@ const NewCampground = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
+		if (!title && !location) {
+			return alert('You must enter a new title and location');
+		}
 		axios({
-			method: 'post',
-			url: '/api/campgrounds',
+			method: 'put',
+			url: `/api/campground/${router.query.id}`,
 			data: {
+				_id: router.query.id,
 				location: location,
 				title: title,
 			},
 		});
 		setTitle('');
 		setLocation('');
-		router.push('/');
-		console.log(data);
+		router.push('/campgrounds');
 	};
+
+	const fetcher = (url) => fetch(url).then((res) => res.json());
+
+	const { data, error } = useSwr(
+		router.query.id ? `/api/campground/${router.query.id}` : null,
+		fetcher
+	);
+
+	if (error) return <div>failed to load</div>;
+	if (!data) return <div>loading...</div>;
 
 	return (
 		<div>
@@ -39,7 +53,7 @@ const NewCampground = () => {
 					<input
 						type="text"
 						name="Title"
-						placeholder="Title"
+						placeholder={`${data[0].title}`}
 						value={title}
 						onChange={handleNameChange}
 					/>
@@ -48,17 +62,17 @@ const NewCampground = () => {
 					<input
 						type="text"
 						name="Location"
-						placeholder="Location"
+						placeholder={`${data[0].location}`}
 						value={location}
 						onChange={handleLocationChange}
 					/>
 				</div>
 				<div>
-					<button>Add Campgrounds</button>
+					<button>Edit Campground</button>
 				</div>
 			</form>
 		</div>
 	);
 };
 
-export default NewCampground;
+export default Edit;

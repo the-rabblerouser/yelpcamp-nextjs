@@ -15,7 +15,7 @@ export default function Campgrounds() {
 			<div>
 				<Link href="/">
 					<a>
-						<h1>{data[0].title} Campgrounds</h1>
+						<h1>Yelp Campgrounds</h1>
 					</a>
 				</Link>
 			</div>
