@@ -2,8 +2,8 @@
 // 	async redirects() {
 // 		return [
 // 			{
-// 				source: '/NewCampgrounds',
-// 				destination: '/',
+// 				source: '/campgrounds',
+// 				destination: '/api/campgrounds',
 // 				permanent: true,
 // 			},
 // 		];
