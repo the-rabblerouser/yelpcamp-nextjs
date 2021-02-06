@@ -2,9 +2,6 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/api/campgrounds": "pages/api/campgrounds.js",
-  "/campgrounds": "pages/campgrounds.js",
-  "/NewCampground": "pages/NewCampground.js",
   "/": "pages/index.js",
-  "/next/dist/pages/_error": "pages/next/dist/pages/_error.js"
+  "/api/campgrounds": "pages/api/campgrounds.js"
 }
