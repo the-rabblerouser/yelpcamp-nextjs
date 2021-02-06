@@ -3,6 +3,5 @@
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
   "/": "pages/index.js",
-  "/api/campgrounds": "pages/api/campgrounds.js",
-  "/campgrounds": "pages/campgrounds.js"
+  "/api/campgrounds": "pages/api/campgrounds.js"
 }
