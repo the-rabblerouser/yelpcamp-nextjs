@@ -2,6 +2,8 @@ import { useRouter } from 'next/router';
 import React, { useState } from 'react';
 import axios from 'axios';
 
+import { Button } from 'reactstrap';
+
 const NewCampground = () => {
 	const router = useRouter();
 	const [title, setTitle] = useState('');
@@ -29,7 +31,6 @@ const NewCampground = () => {
 		setTitle('');
 		setLocation('');
 		router.push('/');
-		console.log(data);
 	};
 
 	return (
@@ -54,7 +55,8 @@ const NewCampground = () => {
 					/>
 				</div>
 				<div>
-					<button>Add Campgrounds</button>
+					<Button color="danger">Add Campgrounds</Button>
+					{/* <button>Add Campgrounds</button> */}
 				</div>
 			</form>
 		</div>
