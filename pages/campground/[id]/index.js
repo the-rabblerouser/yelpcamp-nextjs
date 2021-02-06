@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import axios from 'axios';
 
+import Layout from '../../../components/layout';
 import styles from '../../../styles/campground.module.css';
 
 import { useRouter } from 'next/router';
@@ -62,5 +63,7 @@ const campground = () => {
 		</>
 	);
 };
+
+campground.Layout = Layout;
 
 export default campground;
