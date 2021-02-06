@@ -1,7 +1,9 @@
-import { useRouter } from 'next/router';
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import axios from 'axios';
 
+import Layout from '../components/layout';
 import { Button } from 'reactstrap';
 
 const NewCampground = () => {
@@ -61,5 +63,7 @@ const NewCampground = () => {
 		</div>
 	);
 };
+
+NewCampground.Layout = Layout;
 
 export default NewCampground;
