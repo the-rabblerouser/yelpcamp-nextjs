@@ -56,7 +56,6 @@ const NewCampground = () => {
 				</div>
 				<div>
 					<Button color="danger">Add Campgrounds</Button>
-					{/* <button>Add Campgrounds</button> */}
 				</div>
 			</form>
 		</div>

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/campgrounds.module.css';
+import NavigationBar from '../components/Navbar';
 
 import useSwr from 'swr';
 
@@ -10,14 +11,12 @@ export default function Campgrounds() {
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
+
 	return (
-		<div>
+		<>
+			<NavigationBar />
 			<div>
-				<Link href="/">
-					<a>
-						<h1>Yelp Campgrounds</h1>
-					</a>
-				</Link>
+				<h1>Campgrounds</h1>
 			</div>
 			{data.map(({ _id, title }) => {
 				return (
@@ -30,6 +29,6 @@ export default function Campgrounds() {
 					</ul>
 				);
 			})}
-		</div>
+		</>
 	);
 }
