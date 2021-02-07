@@ -6,7 +6,7 @@ const Footer = () => {
 		<>
 			<footer class="footer bg-dark py-3 mt-auto">
 				<div class="container">
-					<span class="text-muted">Yelp Camp @2021</span>
+					<span class="text-muted">&copy; Yelp Camp @2021</span>
 				</div>
 			</footer>
 		</>
