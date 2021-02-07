@@ -1,4 +1,5 @@
 import React from 'react';
+import { Container } from 'reactstrap';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
@@ -6,7 +7,9 @@ function MyApp({ Component, pageProps }) {
 
 	return (
 		<Layout>
-			<Component {...pageProps} />
+			<Container>
+				<Component {...pageProps} />
+			</Container>
 		</Layout>
 	);
 }
