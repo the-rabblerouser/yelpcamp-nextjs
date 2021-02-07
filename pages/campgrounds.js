@@ -25,9 +25,7 @@ function Campgrounds() {
 
 	return (
 		<>
-			<div>
-				<h1>Campgrounds</h1>
-			</div>
+			<h1>Campgrounds</h1>
 			{data.map(({ _id, title, image, description, location }) => {
 				return (
 					<div key={_id}>
