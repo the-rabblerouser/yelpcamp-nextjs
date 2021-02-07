@@ -1,23 +1,21 @@
 import Link from 'next/link';
 import styles from '../styles/campgrounds.module.css';
+import Layout from '../components/layout';
 
 import useSwr from 'swr';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
-export default function Campgrounds() {
+function Campgrounds() {
 	const { data, error } = useSwr('/api/campgrounds', fetcher);
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
+
 	return (
-		<div>
+		<>
 			<div>
-				<Link href="/">
-					<a>
-						<h1>Yelp Campgrounds</h1>
-					</a>
-				</Link>
+				<h1>Campgrounds</h1>
 			</div>
 			{data.map(({ _id, title }) => {
 				return (
@@ -25,11 +23,15 @@ export default function Campgrounds() {
 						<li className={styles.listItem}>
 							<Link href={`/campground/[$_id]`} as={`/campground/${_id}`}>
 								<a>{title}</a>
-							</Link>{' '}
+							</Link>
 						</li>
 					</ul>
 				);
 			})}
-		</div>
+		</>
 	);
 }
+
+Campgrounds.Layout = Layout;
+
+export default Campgrounds;
