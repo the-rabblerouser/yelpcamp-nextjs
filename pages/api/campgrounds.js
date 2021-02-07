@@ -25,6 +25,9 @@ export default async (req, res) => {
 				const campgrounds = await db.collection('campgrounds').insert({
 					title: req.body.title,
 					location: req.body.location,
+					description: req.body.description,
+					price: req.body.price,
+					image: req.body.image,
 				});
 
 				res.send(campgrounds);

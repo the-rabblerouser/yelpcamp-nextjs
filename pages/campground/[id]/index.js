@@ -1,11 +1,25 @@
 import Link from 'next/link';
-import axios from 'axios';
-
-import Layout from '../../../components/layout';
-import styles from '../../../styles/campground.module.css';
 
 import { useRouter } from 'next/router';
 import useSwr from 'swr';
+import axios from 'axios';
+import {
+	Card,
+	CardImg,
+	CardText,
+	CardBody,
+	CardTitle,
+	Button,
+	Row,
+	Col,
+	ListGroup,
+	ListGroupItem,
+	Form,
+	CardFooter,
+} from 'reactstrap';
+
+import Layout from '../../../components/layout';
+import styles from '../../../styles/campground.module.css';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -34,32 +48,58 @@ const campground = () => {
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
+
+	const { title, location, description, price, image } = data[0];
 	return (
 		<>
-			<div>
-				<Link href="/campgrounds">
-					<a>
-						<h1>{data[0].title}</h1>
-					</a>
-				</Link>
-			</div>
-			<div>
-				<h2>{data[0].location}</h2>
-			</div>
-			<div>
-				<button>
-					<Link
-						href={`/campground/${[router.query.id]}/edit`}
-						as={`/campground/${router.query.id}/edit`}>
-						<a>Edit</a>
-					</Link>
-				</button>
-			</div>
-			<div>
-				<form onSubmit={handleDelete}>
-					<button>Delete</button>
-				</form>
-			</div>
+			<Row>
+				<Col sm={{ size: 6, offset: 3 }}>
+					<Card className="mt-3 mb-3">
+						<CardImg
+							top
+							width="100%"
+							src={image}
+							alt="Card image cap"
+							className="image-fluid"
+						/>
+						<ListGroup>
+							<ListGroupItem>
+								<CardBody>
+									<CardTitle tag="h5">{title}</CardTitle>
+									<CardText>{description}</CardText>
+								</CardBody>
+							</ListGroupItem>
+							<ListGroupItem>
+								<CardBody>
+									<CardText className="text-muted">{location}</CardText>
+								</CardBody>
+							</ListGroupItem>
+							<ListGroupItem>
+								<CardBody>
+									<CardText>Price: ${price}</CardText>
+								</CardBody>
+							</ListGroupItem>
+							<ListGroupItem>
+								<CardBody>
+									<Link
+										href={`/campground/${[router.query.id]}/edit`}
+										as={`/campground/${router.query.id}/edit`}>
+										<Button color="dark">
+											<a>Edit</a>
+										</Button>
+									</Link>
+									<Form onSubmit={handleDelete} className="d-inline">
+										<Button className="ms-2" color="dark">
+											<a>Delete</a>
+										</Button>
+									</Form>
+								</CardBody>
+							</ListGroupItem>
+						</ListGroup>
+						<CardFooter className="text-muted"> 2 days ago</CardFooter>
+					</Card>
+				</Col>
+			</Row>
 		</>
 	);
 };
