@@ -31,6 +31,7 @@ const campground = () => {
 		router.query.id ? `/api/campground/${router.query.id}` : null,
 		fetcher
 	);
+	console.log(data);
 
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
@@ -46,6 +47,16 @@ const campground = () => {
 			<div>
 				<h2>{data[0].location}</h2>
 			</div>
+			<div>
+				<img src={data[0].image} alt="Img" />
+				<p>{data[0].description}</p>
+			</div>
+			<div>
+				<p>
+					Price: <span>${data[0].price}</span>
+				</p>
+			</div>
+
 			<div>
 				<button>
 					<Link
