@@ -11,7 +11,7 @@ export default async (req, res) => {
 					.collection('campgrounds')
 					.find({})
 					.sort()
-					.limit(500)
+					.limit(20)
 					.toArray();
 
 				res.json(campgrounds);
