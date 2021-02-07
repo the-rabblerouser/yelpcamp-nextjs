@@ -1,38 +1,60 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import axios from 'axios';
 
 import { useRouter } from 'next/router';
 import useSwr from 'swr';
+import {
+	Button,
+	Row,
+	Col,
+	Form,
+	FormGroup,
+	Input,
+	InputGroup,
+	InputGroupAddon,
+} from 'reactstrap';
 
-const Edit = () => {
-	const router = useRouter();
-	const [title, setTitle] = useState('');
-	const [location, setLocation] = useState('');
+import Layout from '../../../../components/layout';
 
-	const handleNameChange = (e) => {
-		return setTitle(e.target.value);
+const initialState = {
+	title: '',
+	location: '',
+	description: '',
+	price: '',
+	image: '',
+};
+
+function reducer(state, { field, value }) {
+	return {
+		...state,
+		[field]: value,
 	};
+}
 
-	const handleLocationChange = (e) => {
-		return setLocation(e.target.value);
+const EditCampground = () => {
+	const [state, dispatch] = useReducer(reducer, initialState);
+
+	const router = useRouter();
+
+	const handleChange = (e) => {
+		dispatch({ field: e.target.name, value: e.target.value });
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!title && !location) {
-			return alert('You must enter a new title and location');
-		}
+
 		axios({
 			method: 'put',
 			url: `/api/campground/${router.query.id}`,
 			data: {
 				_id: router.query.id,
-				location: location,
-				title: title,
+				title,
+				location,
+				description,
+				price,
+				image,
 			},
 		});
-		setTitle('');
-		setLocation('');
 		router.push('/campgrounds');
 	};
 
@@ -46,33 +68,71 @@ const Edit = () => {
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
+	const { title, location, description, price, image } = state;
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<div>
-					<input
-						type="text"
-						name="Title"
-						placeholder={`${data[0].title}`}
-						value={title}
-						onChange={handleNameChange}
-					/>
-				</div>
-				<div>
-					<input
-						type="text"
-						name="Location"
-						placeholder={`${data[0].location}`}
-						value={location}
-						onChange={handleLocationChange}
-					/>
-				</div>
-				<div>
-					<button>Edit Campground</button>
-				</div>
-			</form>
-		</div>
+		<>
+			<Row>
+				<h1 className="text-center mb-3">Edit Campground</h1>
+				<Col sm={{ size: 6, offset: 3 }}>
+					<Form onSubmit={handleSubmit}>
+						<FormGroup className="mb-3">
+							<Input
+								type="text"
+								name="title"
+								placeholder={`${data[0].title}`}
+								value={title}
+								onChange={handleChange}
+							/>
+						</FormGroup>
+						<FormGroup className="mb-3">
+							<Input
+								type="text"
+								name="location"
+								placeholder={`${data[0].location}`}
+								value={location}
+								onChange={handleChange}
+							/>
+						</FormGroup>
+						<FormGroup className="mb-3">
+							<Input
+								type="textarea"
+								name="description"
+								placeholder={`${data[0].description}`}
+								value={description}
+								onChange={handleChange}
+							/>
+						</FormGroup>
+						<FormGroup className="mb-3">
+							<InputGroup>
+								<InputGroupAddon addonType="prepend">
+									<span className="input-group-text">$</span>
+								</InputGroupAddon>
+								<Input
+									type="number"
+									name="price"
+									placeholder={`${data[0].price}`}
+									value={price}
+									onChange={handleChange}
+								/>
+							</InputGroup>
+						</FormGroup>
+						<FormGroup className="mb-3">
+							<Input
+								type="text"
+								name="image"
+								placeholder={`${data[0].image}`}
+								value={image}
+								onChange={handleChange}
+							/>
+						</FormGroup>
+						<Button color="dark">Edit Campground</Button>
+					</Form>
+				</Col>
+			</Row>
+		</>
 	);
 };
 
-export default Edit;
+EditCampground.Layout = Layout;
+
+export default EditCampground;
