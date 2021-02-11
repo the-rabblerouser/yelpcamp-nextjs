@@ -2,7 +2,7 @@ import { connectToDatabase } from '../../utils/mongodb';
 
 import Joi from 'joi';
 
-const Campground = async (err, req, res) => {
+const Campground = async (req, res) => {
 	const { method } = req;
 	const { db } = await connectToDatabase();
 
@@ -32,16 +32,17 @@ const Campground = async (err, req, res) => {
 			}).required();
 
 			const { value, error } = campgroundSchema.validate(req.body);
+
 			if (error) {
-				const msg = error.details.map((el) => el.message).join('');
+				const msg = error.details
+					.map(({ message }) => `400 Bad Request: ${message}`)
+					.join(',');
 				return res.status(400).send(msg);
 			}
-			// const campgrounds = await db
-			// 	.collection('campgrounds')
-			// 	.insertOne(results);
-			// res.send(campgrounds);
 
-			return res.send(value);
+			const campgrounds = await db.collection('campgrounds').insertOne(value);
+
+			return res.send(campgrounds);
 
 			break;
 		default:

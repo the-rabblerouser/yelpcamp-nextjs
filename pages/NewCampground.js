@@ -25,7 +25,6 @@ const NewCampground = () => {
 	return (
 		<>
 			<div className="row">
-				<Error msg={'title'} />
 				<h1 className="text-center mb-3">New Campground</h1>
 				<div className="col-md-6 offset-md-3">
 					<form onSubmit={handleSubmit(onSubmit)}>
