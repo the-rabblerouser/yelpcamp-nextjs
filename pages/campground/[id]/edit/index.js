@@ -1,62 +1,15 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
-
+import React from 'react';
 import { useRouter } from 'next/router';
+
 import useSwr from 'swr';
-import {
-	Button,
-	Row,
-	Col,
-	Form,
-	FormGroup,
-	Input,
-	InputGroup,
-	InputGroupAddon,
-} from 'reactstrap';
+import axios from 'axios';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 
 import Layout from '../../../../components/layout';
 
-const initialState = {
-	title: '',
-	location: '',
-	description: '',
-	price: '',
-	image: '',
-};
-
-function reducer(state, { field, value }) {
-	return {
-		...state,
-		[field]: value,
-	};
-}
-
 const EditCampground = () => {
-	const [state, dispatch] = useReducer(reducer, initialState);
-
 	const router = useRouter();
-
-	const handleChange = (e) => {
-		dispatch({ field: e.target.name, value: e.target.value });
-	};
-
-	const handleSubmit = (e) => {
-		e.preventDefault();
-
-		axios({
-			method: 'put',
-			url: `/api/campground/${router.query.id}`,
-			data: {
-				_id: router.query.id,
-				title,
-				location,
-				description,
-				price,
-				image,
-			},
-		});
-		router.push('/campgrounds');
-	};
 
 	const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -65,70 +18,117 @@ const EditCampground = () => {
 		fetcher
 	);
 
+	const { register, handleSubmit, errors } = useForm();
+
+	const onSubmit = (data) => {
+		axios({
+			method: 'put',
+			url: `/api/campground/${router.query.id}`,
+			data,
+		});
+		router.push('/campgrounds');
+	};
+
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
-	const { title, location, description, price, image } = state;
 	return (
 		<>
-			<Row>
+			<div className="row">
 				<h1 className="text-center mb-3">Edit Campground</h1>
-				<Col sm={{ size: 6, offset: 3 }}>
-					<Form onSubmit={handleSubmit}>
-						<FormGroup className="mb-3">
-							<Input
+				<div className="col-md-6 offset-md-3">
+					<form onSubmit={handleSubmit(onSubmit)}>
+						<div className="mb-3">
+							<input
 								type="text"
 								name="title"
 								placeholder={`${data[0].title}`}
-								value={title}
-								onChange={handleChange}
+								className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+								ref={register({ required: true })}
 							/>
-						</FormGroup>
-						<FormGroup className="mb-3">
-							<Input
-								type="text"
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="title"
+								as="div"
+								message="*This is required"
+							/>
+						</div>
+						<div className="mb-3">
+							<input
 								name="location"
+								className={`form-control ${
+									errors.location ? 'is-invalid' : ''
+								}`}
+								type="text"
 								placeholder={`${data[0].location}`}
-								value={location}
-								onChange={handleChange}
+								ref={register({ required: true })}
 							/>
-						</FormGroup>
-						<FormGroup className="mb-3">
-							<Input
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="location"
+								as="div"
+								message="*This is required"
+							/>
+						</div>
+						<div className="mb-3">
+							<input
 								type="textarea"
 								name="description"
 								placeholder={`${data[0].description}`}
-								value={description}
-								onChange={handleChange}
+								className={`form-control ${
+									errors.description ? 'is-invalid' : ''
+								}`}
+								ref={register({ required: true })}
 							/>
-						</FormGroup>
-						<FormGroup className="mb-3">
-							<InputGroup>
-								<InputGroupAddon addonType="prepend">
-									<span className="input-group-text">$</span>
-								</InputGroupAddon>
-								<Input
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="description"
+								as="div"
+								message="*This is required"
+							/>
+						</div>
+						<div className="mb-3">
+							<div className="input-group">
+								<span className="input-group-text">$</span>
+								<input
 									type="number"
 									name="price"
 									placeholder={`${data[0].price}`}
-									value={price}
-									onChange={handleChange}
+									className={`form-control ${errors.price ? 'is-invalid' : ''}`}
+									ref={register({ required: true })}
 								/>
-							</InputGroup>
-						</FormGroup>
-						<FormGroup className="mb-3">
-							<Input
+							</div>
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="price"
+								as="div"
+								message="*This is required"
+							/>
+						</div>
+						<div className="mb-3">
+							<input
 								type="text"
 								name="image"
 								placeholder={`${data[0].image}`}
-								value={image}
-								onChange={handleChange}
+								className={`form-control ${errors.image ? 'is-invalid' : ''}`}
+								ref={register({ required: true })}
 							/>
-						</FormGroup>
-						<Button color="dark">Edit Campground</Button>
-					</Form>
-				</Col>
-			</Row>
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="image"
+								as="div"
+								message="*This is required"
+							/>
+						</div>
+						<button className="btn btn-dark">Edit Campground</button>
+					</form>
+				</div>
+			</div>
 		</>
 	);
 };
