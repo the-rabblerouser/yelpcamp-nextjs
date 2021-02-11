@@ -1,5 +1,7 @@
 import { connectToDatabase } from '../../../utils/mongodb';
 
+import Joi from 'joi';
+
 let ObjectID = require('mongodb').ObjectID;
 
 export default async (req, res) => {
@@ -24,19 +26,41 @@ export default async (req, res) => {
 
 			break;
 		case 'PUT':
-			try {
-				const campground = await db.collection('campgrounds').findOneAndUpdate(
-					{ _id: new ObjectID(id) },
-					{ $set: { title: req.body.title, location: req.body.location } },
-					{
-						new: true,
-					}
-				);
+			const campgroundSchema = Joi.object({
+				title: Joi.string().required(),
+				location: Joi.string().required(),
+				description: Joi.string().required(),
+				price: Joi.number().required().min(0),
+				image: Joi.string().required(),
+			}).required();
 
-				res.json(campground);
-			} catch (error) {
-				res.status(400).json({ success: false });
+			const { value, error } = campgroundSchema.validate(req.body);
+
+			if (error) {
+				const msg = error.details
+					.map(({ message }) => `400 Bad Request: ${message}`)
+					.join(',');
+				return res.status(400).send(msg);
 			}
+
+			const campground = await db.collection('campgrounds').findOneAndUpdate(
+				{ _id: new ObjectID(id) },
+				{
+					$set: {
+						title: value.title,
+						location: value.location,
+						description: value.description,
+						price: value.price,
+						image: value.image,
+					},
+				},
+				{
+					new: true,
+				}
+			);
+
+			return res.json(campground);
+
 			break;
 		case 'DELETE':
 			try {

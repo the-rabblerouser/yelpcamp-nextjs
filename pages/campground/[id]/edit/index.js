@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import useSwr from 'swr';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 
 import Layout from '../../../../components/layout';
 
@@ -34,7 +35,7 @@ const EditCampground = () => {
 	return (
 		<>
 			<div className="row">
-				<h1 className="text-center mb-3">New Campground</h1>
+				<h1 className="text-center mb-3">Edit Campground</h1>
 				<div className="col-md-6 offset-md-3">
 					<form onSubmit={handleSubmit(onSubmit)}>
 						<div className="mb-3">
@@ -42,30 +43,52 @@ const EditCampground = () => {
 								type="text"
 								name="title"
 								placeholder={`${data[0].title}`}
-								className="form-control"
+								className={`form-control ${errors.title ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
-							{errors.title && '*Title is required'}
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="title"
+								as="div"
+								message="*This is required"
+							/>
 						</div>
 						<div className="mb-3">
 							<input
 								name="location"
-								className="form-control"
+								className={`form-control ${
+									errors.location ? 'is-invalid' : ''
+								}`}
 								type="text"
 								placeholder={`${data[0].location}`}
 								ref={register({ required: true })}
 							/>
-							{errors.location && <p>*Location is required</p>}
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="location"
+								as="div"
+								message="*This is required"
+							/>
 						</div>
 						<div className="mb-3">
 							<input
 								type="textarea"
 								name="description"
 								placeholder={`${data[0].description}`}
-								className="form-control"
+								className={`form-control ${
+									errors.description ? 'is-invalid' : ''
+								}`}
 								ref={register({ required: true })}
 							/>
-							{errors.description && '*Description is required'}
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="description"
+								as="div"
+								message="*This is required"
+							/>
 						</div>
 						<div className="mb-3">
 							<div className="input-group">
@@ -74,21 +97,33 @@ const EditCampground = () => {
 									type="number"
 									name="price"
 									placeholder={`${data[0].price}`}
-									className="form-control"
+									className={`form-control ${errors.price ? 'is-invalid' : ''}`}
 									ref={register({ required: true })}
 								/>
 							</div>
-							{errors.price && '* Price is required'}
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="price"
+								as="div"
+								message="*This is required"
+							/>
 						</div>
 						<div className="mb-3">
 							<input
 								type="text"
 								name="image"
 								placeholder={`${data[0].image}`}
-								className="form-control"
+								className={`form-control ${errors.image ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
-							{errors.image && '*Image URL is required'}
+							<ErrorMessage
+								className="invalid-feedback"
+								errors={errors}
+								name="image"
+								as="div"
+								message="*This is required"
+							/>
 						</div>
 						<button className="btn btn-dark">Edit Campground</button>
 					</form>
