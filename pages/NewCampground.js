@@ -5,6 +5,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 import Layout from '../components/layout';
+
 // import style from '../styles/newcampground.module.css';
 
 const NewCampground = () => {
@@ -24,6 +25,7 @@ const NewCampground = () => {
 	return (
 		<>
 			<div className="row">
+				<Error msg={'title'} />
 				<h1 className="text-center mb-3">New Campground</h1>
 				<div className="col-md-6 offset-md-3">
 					<form onSubmit={handleSubmit(onSubmit)}>

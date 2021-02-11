@@ -2,7 +2,7 @@ import { connectToDatabase } from '../../utils/mongodb';
 
 import Joi from 'joi';
 
-const Campground = async (req, res) => {
+const Campground = async (err, req, res) => {
 	const { method } = req;
 	const { db } = await connectToDatabase();
 
@@ -25,7 +25,10 @@ const Campground = async (req, res) => {
 		case 'POST':
 			const campgroundSchema = Joi.object({
 				title: Joi.string().required(),
+				location: Joi.string().required(),
+				description: Joi.string().required(),
 				price: Joi.number().required().min(0),
+				image: Joi.string().required(),
 			}).required();
 
 			const { value, error } = campgroundSchema.validate(req.body);
@@ -38,7 +41,6 @@ const Campground = async (req, res) => {
 			// 	.insertOne(results);
 			// res.send(campgrounds);
 
-			console.log(value);
 			return res.send(value);
 
 			break;

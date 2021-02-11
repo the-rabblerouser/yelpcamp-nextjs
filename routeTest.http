@@ -7,7 +7,7 @@ content-type: application/json
 
 {
   "title": "Hey",
-  "price":  "hey"
+  "price":  -1
 }
 
 ###
