@@ -22,7 +22,7 @@ export default async (req, res) => {
 
 		case 'POST':
 			try {
-				const campgrounds = await db.collection('campgrounds').insert({
+				const campgrounds = await db.collection('campgrounds').insertOne({
 					title: req.body.title,
 					location: req.body.location,
 					description: req.body.description,
