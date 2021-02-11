@@ -1,6 +1,8 @@
 import { connectToDatabase } from '../../utils/mongodb';
 
-export default async (req, res) => {
+import Joi from 'joi';
+
+const Campground = async (req, res) => {
 	const { method } = req;
 	const { db } = await connectToDatabase();
 
@@ -21,22 +23,29 @@ export default async (req, res) => {
 			break;
 
 		case 'POST':
-			try {
-				const campgrounds = await db.collection('campgrounds').insertOne({
-					title: req.body.title,
-					location: req.body.location,
-					description: req.body.description,
-					price: req.body.price,
-					image: req.body.image,
-				});
+			const campgroundSchema = Joi.object({
+				title: Joi.string().required(),
+				price: Joi.number().required().min(0),
+			}).required();
 
-				res.send(campgrounds);
-			} catch (error) {
-				res.status(400).json({ success: false });
+			const { value, error } = campgroundSchema.validate(req.body);
+			if (error) {
+				const msg = error.details.map((el) => el.message).join('');
+				return res.status(400).send(msg);
 			}
+			// const campgrounds = await db
+			// 	.collection('campgrounds')
+			// 	.insertOne(results);
+			// res.send(campgrounds);
+
+			console.log(value);
+			return res.send(value);
+
 			break;
 		default:
 			res.setHeader('Allow', ['GET', 'POST']);
 			res.status(405).end(`Method ${method} Not Allowed`);
 	}
 };
+
+export default Campground;
