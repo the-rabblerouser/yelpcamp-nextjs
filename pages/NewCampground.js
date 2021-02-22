@@ -19,7 +19,7 @@ const NewCampground = () => {
 			url: '/api/campgrounds',
 			data,
 		});
-		router.push('/');
+		router.push('/campgrounds');
 	};
 
 	return (
