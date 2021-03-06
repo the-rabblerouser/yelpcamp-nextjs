@@ -1,13 +1,16 @@
 import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
 const ReviewForm = () => {
+	const router = useRouter();
 	const { register, handleSubmit, errors } = useForm();
 
 	const onSubmit = (data) => {
 		console.log(data);
+		router.reload();
 	};
 
 	return (
