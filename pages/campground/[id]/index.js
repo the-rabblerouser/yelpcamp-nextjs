@@ -90,7 +90,7 @@ const campground = () => {
 										</Button>
 									</Link>
 									<Form onSubmit={handleDelete} className="d-inline">
-										<Button className="ms-2" color="dark">
+										<Button className="ms-2" color="danger">
 											<a>Delete</a>
 										</Button>
 									</Form>
