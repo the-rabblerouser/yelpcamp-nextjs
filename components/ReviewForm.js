@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -23,13 +25,7 @@ const ReviewForm = () => {
 						max="5"
 						name="rating"
 						id="rating"
-					/>
-					<ErrorMessage
-						className="invalid-feedback"
-						errors={errors}
-						name="rating"
-						as="div"
-						message="*This is required"
+						ref={register({ required: true })}
 					/>
 				</div>
 				<div className="mb-3">
@@ -38,16 +34,16 @@ const ReviewForm = () => {
 					</label>
 					<textarea
 						id="body"
-						name="review"
+						name="body"
 						rows="3"
 						cols="30"
-						className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+						className={`form-control ${errors.body ? 'is-invalid' : ''}`}
 						ref={register({ required: true })}
 					/>
 					<ErrorMessage
 						className="invalid-feedback"
 						errors={errors}
-						name="review"
+						name="body"
 						as="div"
 						message="*This is required"
 					/>
