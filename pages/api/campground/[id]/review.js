@@ -10,9 +10,9 @@ const handler = nextConnect();
 handler.post(async (req, res) => {
 	const { db } = await connectToDatabase();
 
-	const {
-		query: { id },
-	} = req;
+	// const {
+	// 	query: { id },
+	// } = req;
 
 	const reviewSchema = Joi.object({
 		rating: Joi.string().required(),
