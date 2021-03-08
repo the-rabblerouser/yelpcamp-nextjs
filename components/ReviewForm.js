@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { useRouter } from 'next/router';
 
+import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
@@ -11,8 +11,13 @@ const ReviewForm = () => {
 	const { register, handleSubmit, errors } = useForm();
 
 	const onSubmit = (data) => {
-		console.log(data);
-		router.reload();
+		axios({
+			method: 'post',
+			url: `/api/campground/${router.query.id}/review`,
+			data,
+		});
+
+		// router.reload();
 	};
 
 	return (
