@@ -1,6 +1,6 @@
 import Link from 'next/link';
-
 import { useRouter } from 'next/router';
+
 import useSwr from 'swr';
 import axios from 'axios';
 import {
@@ -19,6 +19,7 @@ import {
 } from 'reactstrap';
 
 import Layout from '../../../components/layout';
+import ReviewForm from '../../../components/ReviewForm';
 import styles from '../../../styles/campground.module.css';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
@@ -89,7 +90,7 @@ const campground = () => {
 										</Button>
 									</Link>
 									<Form onSubmit={handleDelete} className="d-inline">
-										<Button className="ms-2" color="dark">
+										<Button className="ms-2" color="danger">
 											<a>Delete</a>
 										</Button>
 									</Form>
@@ -98,6 +99,7 @@ const campground = () => {
 						</ListGroup>
 						<CardFooter className="text-muted"> 2 days ago</CardFooter>
 					</Card>
+					<ReviewForm />
 				</Col>
 			</Row>
 		</>

@@ -1,0 +1,29 @@
+/* style datalist
+
+.ratingDatalist {
+    display: block;
+	margin-top: -4px;
+}
+
+.ratingOption {
+    display: inline-block;
+	width: calc((100% - 12px) / (var(--list-length) - 1));
+	text-align: center;
+}
+
+input[type='range'] + datalist {
+
+}
+input[type='range'] + datalist option {
+	display: inline-block;
+	width: calc((100% - 12px) / (var(--list-length) - 1));
+	text-align: center;
+}
+input[type='range'] + datalist option:first-child {
+	width: calc((100% - 12px) / ((var(--list-length) - 1) * 2) + 6px);
+	text-align: left;
+}
+input[type='range'] + datalist option:last-child {
+	width: calc((100% - 12px) / ((var(--list-length) - 1) * 2) + 6px);
+	text-align: right;
+} */
