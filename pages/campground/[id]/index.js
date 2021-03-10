@@ -35,8 +35,8 @@ const campground = () => {
 			url: `/api/campground/${router.query.id}`,
 			data: {
 				_id: router.query.id,
-				location: data[0].location,
-				title: data[0].title,
+				location: data.location,
+				title: data.title,
 			},
 		});
 		router.push('/campgrounds');
@@ -47,10 +47,12 @@ const campground = () => {
 		fetcher
 	);
 
+	console.log(data);
+
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
-	const { title, location, description, price, image } = data[0];
+	const { title, location, description, price, image } = data;
 	return (
 		<>
 			<Row>
