@@ -50,7 +50,10 @@ const campground = () => {
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
-	const { title, location, description, price, image } = data;
+	const { title, location, description, price, image, reviews } = data;
+
+	console.log(reviews);
+
 	return (
 		<>
 			<Row>
@@ -100,6 +103,14 @@ const campground = () => {
 						<CardFooter className="text-muted"> 2 days ago</CardFooter>
 					</Card>
 					<ReviewForm />
+					{reviews.map(({ _id, rating, body }) => {
+						return (
+							<div key={_id} className="mb-3">
+								<p>Rating: {rating}</p>
+								<p>Review: {body}</p>
+							</div>
+						);
+					})}
 				</Col>
 			</Row>
 		</>
