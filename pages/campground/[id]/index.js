@@ -52,12 +52,10 @@ const campground = () => {
 
 	const { title, location, description, price, image, reviews } = data;
 
-	console.log(reviews);
-
 	return (
 		<>
 			<Row>
-				<Col sm={{ size: 6, offset: 3 }}>
+				<Col sm={{ size: 8 }}>
 					<Card className="mt-3 mb-3">
 						<CardImg
 							top
@@ -75,7 +73,9 @@ const campground = () => {
 							</ListGroupItem>
 							<ListGroupItem>
 								<CardBody>
-									<CardText className="text-muted">{location}</CardText>
+									<CardText className="text-muted">
+										Location: {location}
+									</CardText>
 								</CardBody>
 							</ListGroupItem>
 							<ListGroupItem>
@@ -102,12 +102,20 @@ const campground = () => {
 						</ListGroup>
 						<CardFooter className="text-muted"> 2 days ago</CardFooter>
 					</Card>
-					<ReviewForm />
+				</Col>
+				<Col sm={{ size: 4 }}>
+					<div className="mt-2">
+						<ReviewForm className="mt-3" />
+					</div>
 					{reviews.map(({ _id, rating, body }) => {
 						return (
-							<div key={_id} className="mb-3">
-								<p>Rating: {rating}</p>
-								<p>Review: {body}</p>
+							<div key={_id}>
+								<Card className="mt-3">
+									<CardBody>
+										<CardTitle tag="h5">Rating: {rating}</CardTitle>
+										<CardText>Review: {body}</CardText>
+									</CardBody>
+								</Card>
 							</div>
 						);
 					})}
