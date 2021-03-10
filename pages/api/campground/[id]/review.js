@@ -2,6 +2,7 @@ import nextConnect from 'next-connect';
 import Joi from 'joi';
 
 import dbConnect from '../../../../utils/mongodb';
+import { reviewSchema } from '../../../../utils/joiSchema';
 import Campground from '../../../../models/campground';
 import Review from '../../../../models/review';
 
@@ -13,11 +14,6 @@ handler.post(async (req, res) => {
 	const {
 		query: { id },
 	} = req;
-
-	const reviewSchema = Joi.object({
-		rating: Joi.string().required(),
-		body: Joi.string().required(),
-	}).required();
 
 	const { value, error } = reviewSchema.validate(req.body);
 

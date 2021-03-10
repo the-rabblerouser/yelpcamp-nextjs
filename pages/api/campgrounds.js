@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect';
-import Joi from 'joi';
 
 import dbConnect from '../../utils/mongodb';
+import { campgroundSchema } from '../../utils/joiSchema';
 import Campground from '../../models/campground';
 
 const handler = nextConnect();
@@ -20,14 +20,6 @@ handler
 	.post(async (req, res) => {
 		await dbConnect();
 
-		const campgroundSchema = Joi.object({
-			title: Joi.string().required(),
-			location: Joi.string().required(),
-			description: Joi.string().required(),
-			price: Joi.number().required().min(0),
-			image: Joi.string().required(),
-		}).required();
-
 		const { value, error } = campgroundSchema.validate(req.body);
 
 		if (error) {
@@ -40,13 +32,6 @@ handler
 		const campgrounds = await Campground.create(value);
 
 		res.send(campgrounds);
-
-		// try {
-		// 	const campground = await Campground.create(value);
-		// 	res.status(201).json(campground);
-		// } catch (error) {
-		// 	res.status(400).json({ success: false });
-		// }
 	});
 
 export default handler;

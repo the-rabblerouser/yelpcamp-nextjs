@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect';
-import Joi from 'joi';
 
 import dbConnect from '../../../utils/mongodb';
+import { campgroundSchema } from '../../../utils/joiSchema';
 import Campground from '../../../models/campground';
 
 const handler = nextConnect();
@@ -27,14 +27,6 @@ handler
 		const {
 			query: { id },
 		} = req;
-
-		const campgroundSchema = Joi.object({
-			title: Joi.string().required(),
-			location: Joi.string().required(),
-			description: Joi.string().required(),
-			price: Joi.number().required().min(0),
-			image: Joi.string().required(),
-		}).required();
 
 		const { value, error } = campgroundSchema.validate(req.body);
 
