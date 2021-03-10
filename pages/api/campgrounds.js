@@ -1,6 +1,6 @@
 import nextConnect from 'next-connect';
-
 import Joi from 'joi';
+
 import dbConnect from '../../utils/mongodb';
 import Campground from '../../models/campground';
 
