@@ -27,7 +27,7 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const campground = () => {
 	const router = useRouter();
 
-	const handleDelete = (e) => {
+	const handleDeleteCampground = (e) => {
 		e.preventDefault();
 
 		axios({
@@ -40,6 +40,22 @@ const campground = () => {
 			},
 		});
 		router.push('/campgrounds');
+	};
+
+	const handleDeleteReview = (e) => {
+		e.preventDefault();
+
+		axios({
+			method: 'delete',
+			url: `/api/campground/${router.query.id}/review`,
+			data: {
+				_id: reviews._id,
+				rating: reviews.rating,
+				body: reviews.body,
+			},
+		});
+
+		// router.reload();
 	};
 
 	const { data, error } = useSwr(
@@ -92,7 +108,7 @@ const campground = () => {
 											<a>Edit</a>
 										</Button>
 									</Link>
-									<Form onSubmit={handleDelete} className="d-inline">
+									<Form onSubmit={handleDeleteCampground} className="d-inline">
 										<Button className="ms-2" color="danger">
 											<a>Delete</a>
 										</Button>
@@ -114,6 +130,11 @@ const campground = () => {
 									<CardBody>
 										<CardTitle tag="h5">Rating: {rating}</CardTitle>
 										<CardText>Review: {body}</CardText>
+										<Form onSubmit={handleDeleteReview} className="d-inline">
+											<Button className="ms-2" color="danger">
+												<a>X</a>
+											</Button>
+										</Form>
 									</CardBody>
 								</Card>
 							</div>

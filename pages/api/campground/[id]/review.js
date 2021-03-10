@@ -8,30 +8,43 @@ import Review from '../../../../models/review';
 
 const handler = nextConnect();
 
-handler.post(async (req, res) => {
-	await dbConnect();
+handler
+	.post(async (req, res) => {
+		await dbConnect();
 
-	const {
-		query: { id },
-	} = req;
+		const {
+			query: { id },
+		} = req;
 
-	const { value, error } = reviewSchema.validate(req.body);
+		const { value, error } = reviewSchema.validate(req.body);
 
-	if (error) {
-		const msg = error.details
-			.map(({ message }) => `400 Bad Request: ${message}`)
-			.join(',');
-		return res.status(400).send(msg);
-	}
+		if (error) {
+			const msg = error.details
+				.map(({ message }) => `400 Bad Request: ${message}`)
+				.join(',');
+			return res.status(400).send(msg);
+		}
 
-	const campground = await Campground.findById(id);
+		const campground = await Campground.findById(id);
 
-	const review = new Review(value);
+		const review = new Review(value);
 
-	campground.reviews.push(review);
+		campground.reviews.push(review);
 
-	await review.save();
-	await campground.save();
-});
+		await review.save();
+		await campground.save();
+	})
+	.delete(async (req, res) => {
+		await dbConnect();
+
+		const {
+			query: { id },
+		} = req;
+
+		console.log(req.body);
+
+		console.log('deleted');
+		// await Review.findByIdAndDelete(id);
+	});
 
 export default handler;

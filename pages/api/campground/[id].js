@@ -16,7 +16,6 @@ handler
 
 		try {
 			const campground = await Campground.findById(id).populate('reviews');
-
 			res.json(campground);
 		} catch (error) {
 			res.status(400).json({ success: false });
