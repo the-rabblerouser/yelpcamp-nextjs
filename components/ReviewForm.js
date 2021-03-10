@@ -17,7 +17,7 @@ const ReviewForm = () => {
 			data,
 		});
 
-		// router.reload();
+		router.reload();
 	};
 
 	return (

@@ -1,49 +1,26 @@
 import nextConnect from 'next-connect';
-import Joi from 'joi';
 
-import { connectToDatabase } from '../../../../utils/mongodb';
-
-let ObjectID = require('mongodb').ObjectID;
+import dbConnect from '../../../../utils/mongodb';
+import Campground from '../../../../models/campground';
+import Review from '../../../../models/review';
 
 const handler = nextConnect();
 
 handler.post(async (req, res) => {
-	const { db } = await connectToDatabase();
+	await dbConnect();
 
-	// const {
-	// 	query: { id },
-	// } = req;
+	const {
+		query: { id },
+	} = req;
 
-	const reviewSchema = Joi.object({
-		rating: Joi.string().required(),
-		body: Joi.string().required(),
-	}).required();
+	const campground = await Campground.findById(id);
 
-	const { value, error } = reviewSchema.validate(req.body);
+	const review = new Review(req.body);
 
-	if (error) {
-		const msg = error.details
-			.map(({ message }) => `400 Bad Request: ${message}`)
-			.join(',');
-		return res.status(400).send(msg);
-	}
+	campground.reviews.push(review);
 
-	const newReview = await db.collection('review').insertOne(value);
-
-	res.write(newReview);
-
-	// const updateCampground = await db.collection('campgrounds').findOneAndUpdate(
-	// 	{ _id: new ObjectID(id) },
-	// 	{
-	// 		$push: {
-	// 			reviews: {
-	// 				$ref: 'review',
-	// 				$id: new ObjectId(),
-	// 			},
-	// 		},
-	// 	}
-	// );
-	// return res.send(updateCampground);
+	await review.save();
+	await campground.save();
 
 	return res.end();
 });
