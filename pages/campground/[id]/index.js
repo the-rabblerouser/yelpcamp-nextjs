@@ -27,19 +27,29 @@ const fetcher = (url) => fetch(url).then((res) => res.json());
 const campground = () => {
 	const router = useRouter();
 
-	const handleDelete = (e) => {
+	const handleDeleteCampground = (e) => {
 		e.preventDefault();
 
 		axios({
 			method: 'delete',
 			url: `/api/campground/${router.query.id}`,
-			data: {
-				_id: router.query.id,
-				location: data[0].location,
-				title: data[0].title,
-			},
 		});
 		router.push('/campgrounds');
+	};
+
+	const handleDeleteReview = (_id) => (e) => {
+		e.preventDefault();
+
+		axios({
+			method: 'delete',
+			url: `/api/campground/${router.query.id}/review/${_id}`,
+			data: {
+				_id: data.reviews._id,
+				campground: data._id,
+			},
+		});
+
+		router.reload();
 	};
 
 	const { data, error } = useSwr(
@@ -50,11 +60,12 @@ const campground = () => {
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
-	const { title, location, description, price, image } = data[0];
+	const { title, location, description, price, image, reviews } = data;
+
 	return (
 		<>
 			<Row>
-				<Col sm={{ size: 6, offset: 3 }}>
+				<Col sm={{ size: 8 }}>
 					<Card className="mt-3 mb-3">
 						<CardImg
 							top
@@ -72,7 +83,9 @@ const campground = () => {
 							</ListGroupItem>
 							<ListGroupItem>
 								<CardBody>
-									<CardText className="text-muted">{location}</CardText>
+									<CardText className="text-muted">
+										Location: {location}
+									</CardText>
 								</CardBody>
 							</ListGroupItem>
 							<ListGroupItem>
@@ -89,7 +102,7 @@ const campground = () => {
 											<a>Edit</a>
 										</Button>
 									</Link>
-									<Form onSubmit={handleDelete} className="d-inline">
+									<Form onSubmit={handleDeleteCampground} className="d-inline">
 										<Button className="ms-2" color="danger">
 											<a>Delete</a>
 										</Button>
@@ -99,7 +112,30 @@ const campground = () => {
 						</ListGroup>
 						<CardFooter className="text-muted"> 2 days ago</CardFooter>
 					</Card>
-					<ReviewForm />
+				</Col>
+				<Col sm={{ size: 4 }}>
+					<div className="mt-2">
+						<ReviewForm className="mt-3" />
+					</div>
+					{reviews.map(({ _id, rating, body }) => {
+						return (
+							<div key={_id}>
+								<Card className="mt-3">
+									<CardBody>
+										<CardTitle tag="h5">Rating: {rating}</CardTitle>
+										<CardText>{body}</CardText>
+										<Form
+											onSubmit={handleDeleteReview(_id)}
+											className="d-inline">
+											<Button className="ms-2" color="danger" size="sm">
+												Delete
+											</Button>
+										</Form>
+									</CardBody>
+								</Card>
+							</div>
+						);
+					})}
 				</Col>
 			</Row>
 		</>

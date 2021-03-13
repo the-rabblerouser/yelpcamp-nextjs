@@ -32,6 +32,7 @@ const EditCampground = () => {
 	if (error) return <div>failed to load</div>;
 	if (!data) return <div>loading...</div>;
 
+	const { title, location, description, price, image } = data;
 	return (
 		<>
 			<div className="row">
@@ -42,7 +43,7 @@ const EditCampground = () => {
 							<input
 								type="text"
 								name="title"
-								placeholder={`${data[0].title}`}
+								placeholder={`${title}`}
 								className={`form-control ${errors.title ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
@@ -61,7 +62,7 @@ const EditCampground = () => {
 									errors.location ? 'is-invalid' : ''
 								}`}
 								type="text"
-								placeholder={`${data[0].location}`}
+								placeholder={`${location}`}
 								ref={register({ required: true })}
 							/>
 							<ErrorMessage
@@ -76,7 +77,7 @@ const EditCampground = () => {
 							<input
 								type="textarea"
 								name="description"
-								placeholder={`${data[0].description}`}
+								placeholder={`${description}`}
 								className={`form-control ${
 									errors.description ? 'is-invalid' : ''
 								}`}
@@ -96,7 +97,7 @@ const EditCampground = () => {
 								<input
 									type="number"
 									name="price"
-									placeholder={`${data[0].price}`}
+									placeholder={`${price}`}
 									className={`form-control ${errors.price ? 'is-invalid' : ''}`}
 									ref={register({ required: true })}
 								/>
@@ -113,7 +114,7 @@ const EditCampground = () => {
 							<input
 								type="text"
 								name="image"
-								placeholder={`${data[0].image}`}
+								placeholder={`${image}`}
 								className={`form-control ${errors.image ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
