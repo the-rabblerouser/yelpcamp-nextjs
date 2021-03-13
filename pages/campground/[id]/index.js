@@ -44,12 +44,12 @@ const campground = () => {
 			method: 'delete',
 			url: `/api/campground/${router.query.id}/review/${_id}`,
 			data: {
-				_id: data.reviews[0]._id,
+				_id: data.reviews._id,
 				campground: data._id,
 			},
 		});
 
-		// router.reload();
+		router.reload();
 	};
 
 	const { data, error } = useSwr(
@@ -123,7 +123,7 @@ const campground = () => {
 								<Card className="mt-3">
 									<CardBody>
 										<CardTitle tag="h5">Rating: {rating}</CardTitle>
-										<CardText>Review: {body}</CardText>
+										<CardText>{body}</CardText>
 										<Form
 											onSubmit={handleDeleteReview(_id)}
 											className="d-inline">
