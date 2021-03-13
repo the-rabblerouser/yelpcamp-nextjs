@@ -33,25 +33,19 @@ const campground = () => {
 		axios({
 			method: 'delete',
 			url: `/api/campground/${router.query.id}`,
-			data: {
-				_id: router.query.id,
-				location: data.location,
-				title: data.title,
-			},
 		});
 		router.push('/campgrounds');
 	};
 
-	const handleDeleteReview = (e) => {
+	const handleDeleteReview = (_id) => (e) => {
 		e.preventDefault();
 
 		axios({
 			method: 'delete',
-			url: `/api/campground/${router.query.id}/review`,
+			url: `/api/campground/${router.query.id}/review/${_id}`,
 			data: {
-				_id: reviews._id,
-				rating: reviews.rating,
-				body: reviews.body,
+				_id: data.reviews[0]._id,
+				campground: data._id,
 			},
 		});
 
@@ -130,9 +124,11 @@ const campground = () => {
 									<CardBody>
 										<CardTitle tag="h5">Rating: {rating}</CardTitle>
 										<CardText>Review: {body}</CardText>
-										<Form onSubmit={handleDeleteReview} className="d-inline">
-											<Button className="ms-2" color="danger">
-												<a>X</a>
+										<Form
+											onSubmit={handleDeleteReview(_id)}
+											className="d-inline">
+											<Button className="ms-2" color="danger" size="sm">
+												Delete
 											</Button>
 										</Form>
 									</CardBody>
