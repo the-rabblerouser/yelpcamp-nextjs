@@ -43,7 +43,7 @@ const EditCampground = () => {
 							<input
 								type="text"
 								name="title"
-								placeholder={`${title}`}
+								defaultValue={`${title}`}
 								className={`form-control ${errors.title ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
@@ -62,7 +62,7 @@ const EditCampground = () => {
 									errors.location ? 'is-invalid' : ''
 								}`}
 								type="text"
-								placeholder={`${location}`}
+								defaultValue={`${location}`}
 								ref={register({ required: true })}
 							/>
 							<ErrorMessage
@@ -77,7 +77,7 @@ const EditCampground = () => {
 							<input
 								type="textarea"
 								name="description"
-								placeholder={`${description}`}
+								defaultValue={`${description}`}
 								className={`form-control ${
 									errors.description ? 'is-invalid' : ''
 								}`}
@@ -97,7 +97,7 @@ const EditCampground = () => {
 								<input
 									type="number"
 									name="price"
-									placeholder={`${price}`}
+									defaultValue={`${price}`}
 									className={`form-control ${errors.price ? 'is-invalid' : ''}`}
 									ref={register({ required: true })}
 								/>
@@ -114,7 +114,7 @@ const EditCampground = () => {
 							<input
 								type="text"
 								name="image"
-								placeholder={`${image}`}
+								defaultValue={`${image}`}
 								className={`form-control ${errors.image ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
