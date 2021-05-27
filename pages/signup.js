@@ -12,13 +12,12 @@ const Signup = () => {
 	const { register, handleSubmit, errors } = useForm();
 
 	const onSubmit = (data) => {
-		console.log(data);
 		axios({
 			method: 'post',
 			url: '/api/users',
 			data,
 		});
-		// router.push('/');
+		router.push('/');
 	};
 
 	return (
@@ -32,7 +31,7 @@ const Signup = () => {
 								type="text"
 								name="email"
 								placeholder="Email"
-								className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+								className={`form-control ${errors.email ? 'is-invalid' : ''}`}
 								ref={register({ required: true })}
 							/>
 							<ErrorMessage
@@ -48,7 +47,9 @@ const Signup = () => {
 								type="text"
 								name="username"
 								placeholder="Username"
-								className={`form-control ${errors.title ? 'is-invalid' : ''}`}
+								className={`form-control ${
+									errors.username ? 'is-invalid' : ''
+								}`}
 								ref={register({ required: true })}
 							/>
 							<ErrorMessage
@@ -63,7 +64,7 @@ const Signup = () => {
 							<input
 								name="password"
 								className={`form-control ${
-									errors.location ? 'is-invalid' : ''
+									errors.password ? 'is-invalid' : ''
 								}`}
 								type="password"
 								placeholder="Password"
