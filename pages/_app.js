@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'reactstrap';
+
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
