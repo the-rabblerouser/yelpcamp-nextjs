@@ -17,19 +17,6 @@ const Home = () => {
 
 				<main className={styles.main}>
 					<h1 className={styles.title}>Yelp Camp</h1>
-					<br />
-					<div>
-						<Link href="/campgrounds" as={`/campgrounds`}>
-							<a>View Campgrounds</a>
-						</Link>
-					</div>
-					<br />
-
-					<div>
-						<Link href="/NewCampground" as={`/newcampground`}>
-							<a>Create a Campground</a>
-						</Link>
-					</div>
 				</main>
 			</div>
 		</>
