@@ -18,7 +18,7 @@ const NavigationBar = (props) => {
 
 	return (
 		<>
-			<Navbar color="dark" dark expand="md" sticky={'top'}>
+			<Navbar light expand="md" sticky={'top'}>
 				<Container>
 					<NavbarBrand href="/">Yelp Camp</NavbarBrand>
 					<NavbarToggler onClick={toggle} />
@@ -30,8 +30,8 @@ const NavigationBar = (props) => {
 								</Link>
 							</NavItem>
 							<NavItem>
-								<Link href="/NewCampground" as={`/newcampground`}>
-									<NavLink href="/newcampground">New Campground</NavLink>
+								<Link href="/newCampground" as={`/newCampground`}>
+									<NavLink href="/newCampground">New Campground</NavLink>
 								</Link>
 							</NavItem>
 						</Nav>

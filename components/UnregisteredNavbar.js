@@ -22,7 +22,7 @@ const UnregisteredNavbar = (props) => {
 
 	return (
 		<>
-			<Navbar color="dark" dark expand="md" sticky={'top'}>
+			<Navbar light expand="md" sticky={'top'}>
 				<Container>
 					<NavbarBrand href="/">Yelp Camp</NavbarBrand>
 					<NavbarToggler onClick={toggle} />

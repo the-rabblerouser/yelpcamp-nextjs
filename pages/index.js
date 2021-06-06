@@ -8,10 +8,7 @@ import styles from '../styles/Home.module.css';
 const Home = () => {
 	return (
 		<>
-			<div>
-				<UnregisteredNavbar />
-			</div>
-
+			<UnregisteredNavbar />
 			<div className={styles.container}>
 				<Head>
 					<title>Yelp Camp</title>
