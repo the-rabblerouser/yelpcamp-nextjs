@@ -33,6 +33,11 @@ const UnregisteredNavbar = (props) => {
 									<NavLink>Sign In</NavLink>
 								</Link>
 							</NavItem>
+							<NavItem>
+								<Link href="#" onClick={handleSignin} className="btn-signin">
+									<NavLink>Sign Up</NavLink>
+								</Link>
+							</NavItem>
 						</Nav>
 					</Collapse>
 				</Container>
