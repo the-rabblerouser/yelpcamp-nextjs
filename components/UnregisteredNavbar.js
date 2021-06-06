@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
+
+import { useSession, signIn, signOut } from 'next-auth/client';
 import {
 	Collapse,
 	Container,
@@ -12,12 +13,20 @@ import {
 } from 'reactstrap';
 
 const UnregisteredNavbar = (props) => {
+	const [session] = useSession();
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = () => setIsOpen(!isOpen);
 
-	const handleSignin = () => {
-		console.log(hello);
+	const handleSignin = (e) => {
+		e.preventDefault();
+		signIn();
+	};
+
+	const handleSignout = (e) => {
+		e.preventDefault();
+		signOut();
 	};
 
 	return (
@@ -28,16 +37,30 @@ const UnregisteredNavbar = (props) => {
 					<NavbarToggler onClick={toggle} />
 					<Collapse isOpen={isOpen} navbar>
 						<Nav className="mr-auto" navbar>
-							<NavItem>
-								<Link href="#" onClick={handleSignin} className="btn-signin">
-									<NavLink>Sign In</NavLink>
-								</Link>
-							</NavItem>
-							<NavItem>
-								<Link href="#" onClick={handleSignin} className="btn-signin">
-									<NavLink>Sign Up</NavLink>
-								</Link>
-							</NavItem>
+							{session && (
+								<>
+									<NavItem>
+										<NavLink
+											href="#"
+											className="btn-signin"
+											onClick={handleSignout}>
+											Sign Out
+										</NavLink>
+									</NavItem>
+								</>
+							)}
+							{!session && (
+								<>
+									<NavItem>
+										<NavLink
+											href="#"
+											onClick={handleSignin}
+											className="btn-signin">
+											Sign In
+										</NavLink>
+									</NavItem>
+								</>
+							)}
 						</Nav>
 					</Collapse>
 				</Container>
