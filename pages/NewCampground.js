@@ -3,12 +3,15 @@ import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
+import { useSession } from 'next-auth/client';
 
 import Layout from '../components/layout';
 
 // import style from '../styles/newcampground.module.css';
 
 const NewCampground = () => {
+	const [session] = useSession();
+
 	const router = useRouter();
 
 	const { register, handleSubmit, errors } = useForm();

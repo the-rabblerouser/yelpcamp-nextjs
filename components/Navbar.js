@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
 import {
 	Collapse,
@@ -10,11 +11,20 @@ import {
 	NavItem,
 	NavLink,
 } from 'reactstrap';
+import { useSession, signOut } from 'next-auth/client';
 
 const NavigationBar = (props) => {
+	const router = useRouter();
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = () => setIsOpen(!isOpen);
+
+	const handleSignout = async (e) => {
+		e.preventDefault();
+		const { url } = await signOut({ redirect: false, callbackUrl: '/' });
+		router.push(url);
+	};
 
 	return (
 		<>
@@ -33,6 +43,14 @@ const NavigationBar = (props) => {
 								<Link href="/newCampground" as={`/newCampground`}>
 									<NavLink href="/newCampground">New Campground</NavLink>
 								</Link>
+							</NavItem>
+							<NavItem>
+								<NavLink
+									href="#"
+									className="btn-signin"
+									onClick={handleSignout}>
+									Sign Out
+								</NavLink>
 							</NavItem>
 						</Nav>
 					</Collapse>

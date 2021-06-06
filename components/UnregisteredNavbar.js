@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { useSession, signIn, signOut } from 'next-auth/client';
 import {
 	Collapse,
@@ -21,7 +20,7 @@ const UnregisteredNavbar = (props) => {
 
 	const handleSignin = (e) => {
 		e.preventDefault();
-		signIn();
+		signIn(null, { callbackUrl: 'http://localhost:3000/campgrounds' });
 	};
 
 	const handleSignout = (e) => {
