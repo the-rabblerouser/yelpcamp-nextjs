@@ -1,14 +1,13 @@
 import Head from 'next/head';
-import Link from 'next/link';
 
-import UnregisteredNavbar from '../components/UnregisteredNavbar';
+import NavigationBar from '../components/NavigationBar';
 
 import styles from '../styles/Home.module.css';
 
 const Home = () => {
 	return (
 		<>
-			<UnregisteredNavbar />
+			<NavigationBar />
 			<div className={styles.container}>
 				<Head>
 					<title>Yelp Camp</title>
