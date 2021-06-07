@@ -1,17 +1,14 @@
 import React from 'react';
-import { Container } from 'reactstrap';
+import { Provider } from 'next-auth/client';
+
+import NavigationBar from '../components/NavigationBar';
+
 import '../styles/globals.css';
 
-function MyApp({ Component, pageProps }) {
-	const Layout = Component.Layout ? Component.Layout : React.Fragment;
-
+export default function App({ Component, pageProps }) {
 	return (
-		<Layout>
-			<Container>
-				<Component {...pageProps} />
-			</Container>
-		</Layout>
+		<Provider session={pageProps.session}>
+			<Component {...pageProps} />
+		</Provider>
 	);
 }
-
-export default MyApp;

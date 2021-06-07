@@ -1,31 +1,25 @@
 import Head from 'next/head';
-import Link from 'next/link';
+
+import NavigationBar from '../components/NavigationBar';
+
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+const Home = () => {
 	return (
-		<div className={styles.container}>
-			<Head>
-				<title>Yelp Camp</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
+		<>
+			<NavigationBar />
+			<div className={styles.container}>
+				<Head>
+					<title>Yelp Camp</title>
+					<link rel="icon" href="/favicon.ico" />
+				</Head>
 
-			<main className={styles.main}>
-				<h1 className={styles.title}>Yelp Camp</h1>
-				<br />
-				<div>
-					<Link href="/campgrounds" as={`/campgrounds`}>
-						<a>View Campgrounds</a>
-					</Link>
-				</div>
-				<br />
-
-				<div>
-					<Link href="/NewCampground" as={`/newcampground`}>
-						<a>Create a Campground</a>
-					</Link>
-				</div>
-			</main>
-		</div>
+				<main className={styles.main}>
+					<h1 className={styles.title}>Yelp Camp</h1>
+				</main>
+			</div>
+		</>
 	);
-}
+};
+
+export default Home;

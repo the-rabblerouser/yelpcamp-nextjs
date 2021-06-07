@@ -6,7 +6,7 @@ import { ErrorMessage } from '@hookform/error-message';
 
 import Layout from '../components/layout';
 
-const Signup = () => {
+const Register = () => {
 	const router = useRouter();
 
 	const { register, handleSubmit, errors } = useForm();
@@ -86,6 +86,6 @@ const Signup = () => {
 	);
 };
 
-Signup.Layout = Layout;
+Register.Layout = Layout;
 
-export default Signup;
+export default Register;
