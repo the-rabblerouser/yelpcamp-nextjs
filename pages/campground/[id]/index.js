@@ -16,15 +16,20 @@ import {
 	ListGroupItem,
 	Form,
 	CardFooter,
+	Container,
 } from 'reactstrap';
+import { useSession } from 'next-auth/client';
 
-import Layout from '../../../components/layout';
+import NavigationBar from '../../../components/NavigationBar';
 import ReviewForm from '../../../components/ReviewForm';
+
 import styles from '../../../styles/campground.module.css';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
 const campground = () => {
+	const [session] = useSession();
+
 	const router = useRouter();
 
 	const handleDeleteCampground = (e) => {
@@ -58,90 +63,98 @@ const campground = () => {
 	);
 
 	if (error) return <div>failed to load</div>;
-	if (!data) return <div>loading...</div>;
+	if (!data)
+		return (
+			<> {session && <div className={styles.container}>loading...</div>}</>
+		);
 
 	const { title, location, description, price, image, reviews } = data;
 
 	return (
 		<>
-			<Layout>
-				<Row>
-					<Col sm={{ size: 8 }}>
-						<Card className="mt-3 mb-3">
-							<CardImg
-								top
-								width="100%"
-								src={image}
-								alt="Card image cap"
-								className="image-fluid"
-							/>
-							<ListGroup>
-								<ListGroupItem>
-									<CardBody>
-										<CardTitle tag="h5">{title}</CardTitle>
-										<CardText>{description}</CardText>
-									</CardBody>
-								</ListGroupItem>
-								<ListGroupItem>
-									<CardBody>
-										<CardText className="text-muted">
-											Location: {location}
-										</CardText>
-									</CardBody>
-								</ListGroupItem>
-								<ListGroupItem>
-									<CardBody>
-										<CardText>Price: ${price}</CardText>
-									</CardBody>
-								</ListGroupItem>
-								<ListGroupItem>
-									<CardBody>
-										<Link
-											href={`/campground/${[router.query.id]}/edit`}
-											as={`/campground/${router.query.id}/edit`}>
-											<Button color="dark">
-												<a>Edit</a>
-											</Button>
-										</Link>
-										<Form
-											onSubmit={handleDeleteCampground}
-											className="d-inline">
-											<Button className="ms-2" color="danger">
-												<a>Delete</a>
-											</Button>
-										</Form>
-									</CardBody>
-								</ListGroupItem>
-							</ListGroup>
-							<CardFooter className="text-muted"> 2 days ago</CardFooter>
-						</Card>
-					</Col>
-					<Col sm={{ size: 4 }}>
-						<div className="mt-2">
-							<ReviewForm className="mt-3" />
-						</div>
-						{reviews.map(({ _id, rating, body }) => {
-							return (
-								<div key={_id}>
-									<Card className="mt-3">
-										<CardBody>
-											<CardTitle tag="h5">Rating: {rating}</CardTitle>
-											<CardText>{body}</CardText>
-											<Form
-												onSubmit={handleDeleteReview(_id)}
-												className="d-inline">
-												<Button className="ms-2" color="danger" size="sm">
-													Delete
-												</Button>
-											</Form>
-										</CardBody>
-									</Card>
+			{session && (
+				<>
+					<NavigationBar />
+					<Container>
+						<Row>
+							<Col sm={{ size: 8 }}>
+								<Card className="mt-3 mb-3">
+									<CardImg
+										top
+										width="100%"
+										src={image}
+										alt="Card image cap"
+										className="image-fluid"
+									/>
+									<ListGroup>
+										<ListGroupItem>
+											<CardBody>
+												<CardTitle tag="h5">{title}</CardTitle>
+												<CardText>{description}</CardText>
+											</CardBody>
+										</ListGroupItem>
+										<ListGroupItem>
+											<CardBody>
+												<CardText className="text-muted">
+													Location: {location}
+												</CardText>
+											</CardBody>
+										</ListGroupItem>
+										<ListGroupItem>
+											<CardBody>
+												<CardText>Price: ${price}</CardText>
+											</CardBody>
+										</ListGroupItem>
+										<ListGroupItem>
+											<CardBody>
+												<Link
+													href={`/campground/${[router.query.id]}/edit`}
+													as={`/campground/${router.query.id}/edit`}>
+													<Button color="dark">
+														<a>Edit</a>
+													</Button>
+												</Link>
+												<Form
+													onSubmit={handleDeleteCampground}
+													className="d-inline">
+													<Button className="ms-2" color="danger">
+														<a>Delete</a>
+													</Button>
+												</Form>
+											</CardBody>
+										</ListGroupItem>
+									</ListGroup>
+									<CardFooter className="text-muted"> 2 days ago</CardFooter>
+								</Card>
+							</Col>
+							<Col sm={{ size: 4 }}>
+								<div className="mt-2">
+									<ReviewForm className="mt-3" />
 								</div>
-							);
-						})}
-					</Col>
-				</Row>
-			</Layout>
+								{reviews.map(({ _id, rating, body }) => {
+									return (
+										<div key={_id}>
+											<Card className="mt-3">
+												<CardBody>
+													<CardTitle tag="h5">Rating: {rating}</CardTitle>
+													<CardText>{body}</CardText>
+													<Form
+														onSubmit={handleDeleteReview(_id)}
+														className="d-inline">
+														<Button className="ms-2" color="danger" size="sm">
+															Delete
+														</Button>
+													</Form>
+												</CardBody>
+											</Card>
+										</div>
+									);
+								})}
+							</Col>
+						</Row>
+					</Container>
+				</>
+			)}
 		</>
 	);
 };
