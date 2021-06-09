@@ -14,6 +14,7 @@ async function dbConnect() {
 		useUnifiedTopology: true,
 		useFindAndModify: false,
 		useCreateIndex: true,
+		writeConcern: {},
 	});
 }
 
