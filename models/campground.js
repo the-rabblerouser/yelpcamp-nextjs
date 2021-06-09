@@ -4,12 +4,12 @@ import Review from './review';
 // if ref is a string and not the Review schema, it will return null when server is restarted
 
 const CampgroundSchema = new Schema({
-	author: String,
 	title: String,
 	image: String,
 	price: Number,
 	description: String,
 	location: String,
+	author: { type: Schema.Types.ObjectId, ref: 'users' },
 	reviews: [{ type: Schema.Types.ObjectId, ref: Review }],
 });
 
