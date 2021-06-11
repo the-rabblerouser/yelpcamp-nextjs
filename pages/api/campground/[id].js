@@ -15,7 +15,10 @@ handler
 		} = req;
 
 		try {
-			const campground = await Campground.findById(id).populate('reviews');
+			const campground = await Campground.findById(id)
+				.populate('reviews')
+				.populate('author');
+
 			res.json(campground);
 		} catch (error) {
 			res.status(400).json({ success: false });

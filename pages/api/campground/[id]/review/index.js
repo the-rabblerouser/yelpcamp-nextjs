@@ -26,6 +26,7 @@ handler.post(async (req, res) => {
 	}
 
 	const campground = await Campground.findById(id);
+	console.log(campground);
 
 	const review = new Review(value);
 

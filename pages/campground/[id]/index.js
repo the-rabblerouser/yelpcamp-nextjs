@@ -68,7 +68,7 @@ const campground = () => {
 			<> {session && <div className={styles.container}>loading...</div>}</>
 		);
 
-	const { title, location, description, price, image, reviews } = data;
+	const { title, location, description, price, image, reviews, author } = data;
 
 	return (
 		<>
@@ -91,6 +91,11 @@ const campground = () => {
 											<CardBody>
 												<CardTitle tag="h5">{title}</CardTitle>
 												<CardText>{description}</CardText>
+											</CardBody>
+										</ListGroupItem>
+										<ListGroupItem>
+											<CardBody>
+												<CardText>Created by: {author.name}</CardText>
 											</CardBody>
 										</ListGroupItem>
 										<ListGroupItem>

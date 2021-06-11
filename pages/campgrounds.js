@@ -30,7 +30,7 @@ function Campgrounds() {
 		return (
 			<> {session && <div className={styles.container}>loading...</div>}</>
 		);
-
+	console.log(data);
 	return (
 		<>
 			{session && (
