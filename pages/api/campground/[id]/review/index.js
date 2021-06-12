@@ -16,7 +16,6 @@ handler.post(async (req, res) => {
 	} = req;
 
 	const { value, error } = reviewSchema.validate(req.body);
-	console.log(value);
 
 	if (error) {
 		const msg = error.details

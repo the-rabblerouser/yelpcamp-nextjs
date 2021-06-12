@@ -112,20 +112,26 @@ const campground = () => {
 										</ListGroupItem>
 										<ListGroupItem>
 											<CardBody>
-												<Link
-													href={`/campground/${[router.query.id]}/edit`}
-													as={`/campground/${router.query.id}/edit`}>
-													<Button color="dark">
-														<a>Edit</a>
-													</Button>
-												</Link>
-												<Form
-													onSubmit={handleDeleteCampground}
-													className="d-inline">
-													<Button className="ms-2" color="danger">
-														<a>Delete</a>
-													</Button>
-												</Form>
+												{author.name && author.name === session.user.name ? (
+													<>
+														<Link
+															href={`/campground/${[router.query.id]}/edit`}
+															as={`/campground/${router.query.id}/edit`}>
+															<Button color="dark">
+																<a>Edit</a>
+															</Button>
+														</Link>
+														<Form
+															onSubmit={handleDeleteCampground}
+															className="d-inline">
+															<Button className="ms-2" color="danger">
+																<a>Delete</a>
+															</Button>
+														</Form>
+													</>
+												) : (
+													<></>
+												)}
 											</CardBody>
 										</ListGroupItem>
 									</ListGroup>
@@ -146,9 +152,19 @@ const campground = () => {
 													<Form
 														onSubmit={handleDeleteReview(_id)}
 														className="d-inline">
-														<Button className="ms-2" color="danger" size="sm">
-															Delete
-														</Button>
+														{author.name &&
+														author.name === session.user.name ? (
+															<>
+																<Button
+																	className="ms-2"
+																	color="danger"
+																	size="sm">
+																	Delete
+																</Button>
+															</>
+														) : (
+															<></>
+														)}
 													</Form>
 												</CardBody>
 											</Card>
