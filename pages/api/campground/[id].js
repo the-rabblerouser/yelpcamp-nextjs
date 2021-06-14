@@ -57,6 +57,12 @@ handler
 			query: { id },
 		} = req;
 
+		const campground = await Campground.findById(id);
+
+		if (!campground.author.equals(id)) {
+			return res.redirect(`/campground/${id}`);
+		}
+
 		await Campground.findByIdAndDelete(id);
 	});
 
