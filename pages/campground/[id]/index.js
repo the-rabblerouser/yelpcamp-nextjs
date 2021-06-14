@@ -140,7 +140,7 @@ const campground = () => {
 							</Col>
 							<Col sm={{ size: 4 }}>
 								<div className="mt-2">
-									<ReviewForm className="mt-3" />
+									<ReviewForm className="mt-3" userId={session.id} />
 								</div>
 								{reviews.map(({ _id, rating, body }) => {
 									return (

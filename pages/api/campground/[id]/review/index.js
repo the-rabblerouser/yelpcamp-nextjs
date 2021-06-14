@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect';
-import Joi from 'joi';
 
 import dbConnect from '../../../../../utils/mongodb';
+import mongoose from 'mongoose';
 import { reviewSchema } from '../../../../../utils/joiSchema';
 import Campground from '../../../../../models/campground';
 import Review from '../../../../../models/review';
@@ -25,7 +25,6 @@ handler.post(async (req, res) => {
 	}
 
 	const campground = await Campground.findById(id);
-	console.log(campground);
 
 	const review = new Review(value);
 
