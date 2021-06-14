@@ -142,35 +142,38 @@ const campground = () => {
 								<div className="mt-2">
 									<ReviewForm className="mt-3" userId={session.id} />
 								</div>
-								{reviews.map(({ _id, rating, body }) => {
-									return (
-										<div key={_id}>
-											<Card className="mt-3">
-												<CardBody>
-													<CardTitle tag="h5">Rating: {rating}</CardTitle>
-													<CardText>{body}</CardText>
-													<Form
-														onSubmit={handleDeleteReview(_id)}
-														className="d-inline">
-														{author.name &&
-														author.name === session.user.name ? (
-															<>
-																<Button
-																	className="ms-2"
-																	color="danger"
-																	size="sm">
-																	Delete
-																</Button>
-															</>
-														) : (
-															<></>
-														)}
-													</Form>
-												</CardBody>
-											</Card>
-										</div>
-									);
-								})}
+								{reviews.map(
+									({ _id, rating, body, author: { name, email } }) => {
+										return (
+											<div key={_id}>
+												<Card className="mt-3">
+													<CardBody>
+														<CardTitle tag="h6">Rating: {rating}</CardTitle>
+														<CardText>{body}</CardText>
+														<Form
+															onSubmit={handleDeleteReview(_id)}
+															className="text-left">
+															{name ||
+															(email && name) ||
+															email === session.user.name ? (
+																<>
+																	<Button color="danger" size="sm">
+																		Delete
+																	</Button>
+																</>
+															) : (
+																<></>
+															)}
+														</Form>
+													</CardBody>
+													<CardFooter className="text-muted">
+														<small>by: {name || email}</small>
+													</CardFooter>
+												</Card>
+											</div>
+										);
+									}
+								)}
 							</Col>
 						</Row>
 					</Container>

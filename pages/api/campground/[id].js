@@ -16,7 +16,12 @@ handler
 
 		try {
 			const campground = await Campground.findById(id)
-				.populate('reviews')
+				.populate({
+					path: 'reviews',
+					populate: {
+						path: 'author',
+					},
+				})
 				.populate('author');
 
 			res.json(campground);
