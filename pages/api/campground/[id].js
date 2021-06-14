@@ -40,9 +40,15 @@ handler
 			return res.status(400).send(msg);
 		}
 
-		const campground = await Campground.findByIdAndUpdate(id, { ...value });
+		const campground = await Campground.findById(id);
 
-		res.json(campground);
+		if (!campground.author.equals(id)) {
+			return res.redirect(`/campground/${id}`);
+		}
+
+		const camp = await Campground.findByIdAndUpdate(id, { ...value });
+
+		res.json(camp);
 	})
 	.delete(async (req, res) => {
 		await dbConnect();
