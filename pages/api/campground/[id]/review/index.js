@@ -1,7 +1,7 @@
 import nextConnect from 'next-connect';
-import Joi from 'joi';
 
 import dbConnect from '../../../../../utils/mongodb';
+import mongoose from 'mongoose';
 import { reviewSchema } from '../../../../../utils/joiSchema';
 import Campground from '../../../../../models/campground';
 import Review from '../../../../../models/review';
@@ -16,7 +16,6 @@ handler.post(async (req, res) => {
 	} = req;
 
 	const { value, error } = reviewSchema.validate(req.body);
-	console.log(value);
 
 	if (error) {
 		const msg = error.details

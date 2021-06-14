@@ -68,7 +68,7 @@ const campground = () => {
 			<> {session && <div className={styles.container}>loading...</div>}</>
 		);
 
-	const { title, location, description, price, image, reviews } = data;
+	const { title, location, description, price, image, reviews, author } = data;
 
 	return (
 		<>
@@ -95,6 +95,11 @@ const campground = () => {
 										</ListGroupItem>
 										<ListGroupItem>
 											<CardBody>
+												<CardText>Created by: {author.name}</CardText>
+											</CardBody>
+										</ListGroupItem>
+										<ListGroupItem>
+											<CardBody>
 												<CardText className="text-muted">
 													Location: {location}
 												</CardText>
@@ -107,20 +112,26 @@ const campground = () => {
 										</ListGroupItem>
 										<ListGroupItem>
 											<CardBody>
-												<Link
-													href={`/campground/${[router.query.id]}/edit`}
-													as={`/campground/${router.query.id}/edit`}>
-													<Button color="dark">
-														<a>Edit</a>
-													</Button>
-												</Link>
-												<Form
-													onSubmit={handleDeleteCampground}
-													className="d-inline">
-													<Button className="ms-2" color="danger">
-														<a>Delete</a>
-													</Button>
-												</Form>
+												{author.name && author.name === session.user.name ? (
+													<>
+														<Link
+															href={`/campground/${[router.query.id]}/edit`}
+															as={`/campground/${router.query.id}/edit`}>
+															<Button color="dark">
+																<a>Edit</a>
+															</Button>
+														</Link>
+														<Form
+															onSubmit={handleDeleteCampground}
+															className="d-inline">
+															<Button className="ms-2" color="danger">
+																<a>Delete</a>
+															</Button>
+														</Form>
+													</>
+												) : (
+													<></>
+												)}
 											</CardBody>
 										</ListGroupItem>
 									</ListGroup>
@@ -129,27 +140,40 @@ const campground = () => {
 							</Col>
 							<Col sm={{ size: 4 }}>
 								<div className="mt-2">
-									<ReviewForm className="mt-3" />
+									<ReviewForm className="mt-3" userId={session.id} />
 								</div>
-								{reviews.map(({ _id, rating, body }) => {
-									return (
-										<div key={_id}>
-											<Card className="mt-3">
-												<CardBody>
-													<CardTitle tag="h5">Rating: {rating}</CardTitle>
-													<CardText>{body}</CardText>
-													<Form
-														onSubmit={handleDeleteReview(_id)}
-														className="d-inline">
-														<Button className="ms-2" color="danger" size="sm">
-															Delete
-														</Button>
-													</Form>
-												</CardBody>
-											</Card>
-										</div>
-									);
-								})}
+								{reviews.map(
+									({ _id, rating, body, author: { name, email } }) => {
+										return (
+											<div key={_id}>
+												<Card className="mt-3">
+													<CardBody>
+														<CardTitle tag="h6">Rating: {rating}</CardTitle>
+														<CardText>{body}</CardText>
+														<Form
+															onSubmit={handleDeleteReview(_id)}
+															className="text-left">
+															{name ||
+															(email && name) ||
+															email === session.user.name ? (
+																<>
+																	<Button color="danger" size="sm">
+																		Delete
+																	</Button>
+																</>
+															) : (
+																<></>
+															)}
+														</Form>
+													</CardBody>
+													<CardFooter className="text-muted">
+														<small>by: {name || email}</small>
+													</CardFooter>
+												</Card>
+											</div>
+										);
+									}
+								)}
 							</Col>
 						</Row>
 					</Container>

@@ -20,7 +20,7 @@ export default async (req, res) => {
 				location: `${cities[random1000].city}, ${cities[random1000].state}`,
 				author: '60bcfe39c120d573987675f8',
 				title: `${sample(descriptors)} ${sample(places)}`,
-				image: 'https://source.unsplash.com/random',
+				image: 'https://source.unsplash.com/collection/2184453',
 				description:
 					'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam dolores vero perferendis laudantium, consequuntur voluptatibus nulla architecto, sit soluta esse iure sed labore ipsam a cum nihil atque molestiae deserunt!',
 				price,

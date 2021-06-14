@@ -15,7 +15,15 @@ handler
 		} = req;
 
 		try {
-			const campground = await Campground.findById(id).populate('reviews');
+			const campground = await Campground.findById(id)
+				.populate({
+					path: 'reviews',
+					populate: {
+						path: 'author',
+					},
+				})
+				.populate('author');
+
 			res.json(campground);
 		} catch (error) {
 			res.status(400).json({ success: false });
@@ -37,9 +45,15 @@ handler
 			return res.status(400).send(msg);
 		}
 
-		const campground = await Campground.findByIdAndUpdate(id, { ...value });
+		const campground = await Campground.findById(id);
 
-		res.json(campground);
+		if (!campground.author.equals(id)) {
+			return res.redirect(`/campground/${id}`);
+		}
+
+		const camp = await Campground.findByIdAndUpdate(id, { ...value });
+
+		res.json(camp);
 	})
 	.delete(async (req, res) => {
 		await dbConnect();
@@ -47,6 +61,12 @@ handler
 		const {
 			query: { id },
 		} = req;
+
+		const campground = await Campground.findById(id);
+
+		if (!campground.author.equals(id)) {
+			return res.redirect(`/campground/${id}`);
+		}
 
 		await Campground.findByIdAndDelete(id);
 	});

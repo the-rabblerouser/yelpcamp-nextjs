@@ -6,11 +6,13 @@ import { ErrorMessage } from '@hookform/error-message';
 
 // import style from '../styles/review.module.css';
 
-const ReviewForm = () => {
+const ReviewForm = ({ userId }) => {
 	const router = useRouter();
 	const { register, handleSubmit, errors } = useForm();
 
-	const onSubmit = (data) => {
+	const onSubmit = (data, userId) => {
+		Object.assign(data, { author: userId });
+
 		axios({
 			method: 'post',
 			url: `/api/campground/${router.query.id}/review`,
@@ -23,7 +25,7 @@ const ReviewForm = () => {
 	return (
 		<>
 			<h2>Leave a Review</h2>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit((data) => onSubmit(data, userId))}>
 				<div className="mb-3">
 					<label className="form-label" htmlFor="rating">
 						Rating

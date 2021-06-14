@@ -9,6 +9,8 @@ import { useSession } from 'next-auth/client';
 
 import NavigationBar from '../../../../components/NavigationBar';
 
+import styles from '../../../../styles/Home.module.css';
+
 const EditCampground = () => {
 	const [session] = useSession();
 
@@ -38,10 +40,11 @@ const EditCampground = () => {
 			<> {session && <div className={styles.container}>loading...</div>}</>
 		);
 
-	const { title, location, description, price, image } = data;
+	const { title, location, description, price, image, author } = data;
+
 	return (
 		<>
-			{session && (
+			{session && session.user.name === author.name ? (
 				<>
 					<NavigationBar />
 					<div className="container mt-5">
@@ -148,6 +151,8 @@ const EditCampground = () => {
 						</div>
 					</div>
 				</>
+			) : (
+				<></>
 			)}
 		</>
 	);
