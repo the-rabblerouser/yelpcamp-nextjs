@@ -4,8 +4,6 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 
-// import style from '../styles/review.module.css';
-
 const ReviewForm = ({ userId }) => {
 	const router = useRouter();
 	const { register, handleSubmit, errors } = useForm();
@@ -30,15 +28,68 @@ const ReviewForm = ({ userId }) => {
 					<label className="form-label" htmlFor="rating">
 						Rating
 					</label>
-					<input
-						className="form-range"
-						type="range"
-						min="1"
-						max="5"
-						name="rating"
-						id="rating"
-						ref={register({ required: true })}
-					/>
+					<fieldset className="starability-basic" name="rating" id="rating">
+						<legend>First rating:</legend>
+						<input
+							type="radio"
+							id="no-rate"
+							className="input-no-rate"
+							name="rating"
+							value="0"
+							aria-label="No rating."
+							ref={register({ required: true })}
+						/>
+						<input
+							type="radio"
+							id="first-rate1"
+							name="rating"
+							value="1"
+							ref={register({ required: true })}
+						/>
+						<label htmlFor="first-rate1" title="Terrible">
+							1 star
+						</label>
+						<input
+							type="radio"
+							id="first-rate2"
+							name="rating"
+							value="2"
+							ref={register({ required: true })}
+						/>
+						<label htmlFor="first-rate2" title="Not good">
+							2 stars
+						</label>
+						<input
+							type="radio"
+							id="first-rate3"
+							name="rating"
+							value="3"
+							ref={register({ required: true })}
+						/>
+						<label htmlFor="first-rate3" title="Average">
+							3 stars
+						</label>
+						<input
+							type="radio"
+							id="first-rate4"
+							name="rating"
+							value="4"
+							ref={register({ required: true })}
+						/>
+						<label htmlFor="first-rate4" title="Very good">
+							4 stars
+						</label>
+						<input
+							type="radio"
+							id="first-rate5"
+							name="rating"
+							value="5"
+							ref={register({ required: true })}
+						/>
+						<label htmlFor="first-rate5" title="Amazing">
+							5 stars
+						</label>
+					</fieldset>
 				</div>
 				<div className="mb-3">
 					<label className="form-label" htmlFor="body">
