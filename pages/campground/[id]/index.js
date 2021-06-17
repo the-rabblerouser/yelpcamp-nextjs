@@ -148,7 +148,13 @@ const campground = () => {
 											<div key={_id}>
 												<Card className="mt-3">
 													<CardBody>
-														<CardTitle tag="h6">Rating: {rating}</CardTitle>
+														<CardTitle tag="h6">
+															<p
+																class="starability-result"
+																data-rating={rating}>
+																Rating: {rating} stars
+															</p>
+														</CardTitle>
 														<CardText>{body}</CardText>
 														<Form
 															onSubmit={handleDeleteReview(_id)}
