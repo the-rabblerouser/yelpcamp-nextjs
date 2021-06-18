@@ -3,13 +3,12 @@ import { useRouter } from 'next/router';
 
 import useSwr from 'swr';
 import axios from 'axios';
-
 import { useSession } from 'next-auth/client';
 
 import NavigationBar from '../../../components/NavigationBar';
 import ReviewForm from '../../../components/ReviewForm';
 
-import styles from '../../../styles/campground.module.css';
+import styles from '../../../styles/Home.module.css';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 

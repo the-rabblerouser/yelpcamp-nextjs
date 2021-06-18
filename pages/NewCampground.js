@@ -4,11 +4,8 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useSession } from 'next-auth/client';
-import { Container } from 'reactstrap';
 
 import NavigationBar from '../components/NavigationBar';
-
-// import style from '../styles/newcampground.module.css';
 
 const NewCampground = () => {
 	const [session] = useSession();
