@@ -149,9 +149,9 @@ const campground = () => {
 															(email && name) ||
 															email === session.user.name ? (
 																<>
-																	<div className="btn btn-danger btn-sm mt-3">
+																	<button className="btn btn-danger btn-sm mt-3">
 																		Delete
-																	</div>
+																	</button>
 																</>
 															) : (
 																<></>
