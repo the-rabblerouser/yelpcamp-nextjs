@@ -1,16 +1,5 @@
 import Link from 'next/link';
-import {
-	Card,
-	CardImg,
-	CardText,
-	CardBody,
-	CardTitle,
-	CardSubtitle,
-	Button,
-	Row,
-	Col,
-	Container,
-} from 'reactstrap';
+
 import useSwr from 'swr';
 import { useSession } from 'next-auth/client';
 
@@ -36,46 +25,44 @@ function Campgrounds() {
 			{session && (
 				<>
 					<NavigationBar />
-					<Container>
+					<div className="container">
 						<h1>Campgrounds</h1>
 						{data.map(({ _id, title, image, description, location }) => {
 							return (
 								<div key={_id}>
-									<Card className="mb-3">
-										<Row>
-											<Col md="4">
-												<CardImg
-													className="image-fluid"
-													width="100%"
+									<div className="card mb-3">
+										<div className="row">
+											<div className="col">
+												<img
+													className="card-img-top"
 													src={image}
 													alt="Card image cap"
+													style={{ height: '25rem' }}
 												/>
-											</Col>
-											<Col md="8">
-												<CardBody>
-													<CardTitle tag="h5">{title}</CardTitle>
-													<CardSubtitle
-														tag="h6"
-														className="mb-2 text-muted"></CardSubtitle>
-													<CardText>{description}</CardText>
-													<CardSubtitle className="mb-4 text-muted">
+											</div>
+											<div className="col">
+												<div className="card-body">
+													<div className="card-title h3">{title}</div>
+													<div className="card-subtitle mt-2 h6 text-muted"></div>
+													<div className="card-text mb-3">{description}</div>
+													<div className="card-subtitle mb-4 text-muted">
 														{location}
-													</CardSubtitle>
+													</div>
 													<Link
 														href={`/campground/[$_id]`}
 														as={`/campground/${_id}`}>
-														<Button>
+														<button className="btn btn-secondary">
 															<a>View {title}</a>
-														</Button>
+														</button>
 													</Link>
-												</CardBody>
-											</Col>
-										</Row>
-									</Card>
+												</div>
+											</div>
+										</div>
+									</div>
 								</div>
 							);
 						})}
-					</Container>
+					</div>
 				</>
 			)}
 		</>

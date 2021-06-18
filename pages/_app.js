@@ -1,8 +1,6 @@
 import React from 'react';
 import { Provider } from 'next-auth/client';
 
-import NavigationBar from '../components/NavigationBar';
-
 import '../styles/stars.css';
 import '../styles/globals.css';
 

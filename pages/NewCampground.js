@@ -4,11 +4,8 @@ import axios from 'axios';
 import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import { useSession } from 'next-auth/client';
-import { Container } from 'reactstrap';
 
 import NavigationBar from '../components/NavigationBar';
-
-// import style from '../styles/newcampground.module.css';
 
 const NewCampground = () => {
 	const [session] = useSession();
@@ -31,7 +28,7 @@ const NewCampground = () => {
 			{session && (
 				<>
 					<NavigationBar />
-					<Container>
+					<div className="container">
 						<div className="row">
 							<h1 className="text-center mb-3">New Campground</h1>
 							<div className="col-md-6 offset-md-3">
@@ -133,7 +130,7 @@ const NewCampground = () => {
 								</form>
 							</div>
 						</div>
-					</Container>
+					</div>
 				</>
 			)}
 		</>

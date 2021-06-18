@@ -15,7 +15,7 @@ const Home = () => {
 				</Head>
 
 				<main className={styles.main}>
-					<h1 className={styles.title}>Yelp Camp</h1>
+					<h1>Yelp Camp</h1>
 				</main>
 			</div>
 		</>

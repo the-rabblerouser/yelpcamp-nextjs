@@ -3,27 +3,12 @@ import { useRouter } from 'next/router';
 
 import useSwr from 'swr';
 import axios from 'axios';
-import {
-	Card,
-	CardImg,
-	CardText,
-	CardBody,
-	CardTitle,
-	Button,
-	Row,
-	Col,
-	ListGroup,
-	ListGroupItem,
-	Form,
-	CardFooter,
-	Container,
-} from 'reactstrap';
 import { useSession } from 'next-auth/client';
 
 import NavigationBar from '../../../components/NavigationBar';
 import ReviewForm from '../../../components/ReviewForm';
 
-import styles from '../../../styles/campground.module.css';
+import styles from '../../../styles/Home.module.css';
 
 const fetcher = (url) => fetch(url).then((res) => res.json());
 
@@ -75,70 +60,71 @@ const campground = () => {
 			{session && (
 				<>
 					<NavigationBar />
-					<Container>
-						<Row>
-							<Col sm={{ size: 8 }}>
-								<Card className="mt-3 mb-3">
-									<CardImg
-										top
-										width="100%"
+					<div className="container">
+						<div className="row">
+							<div className="col-sm-8">
+								<div className="card mt-3 mb-3">
+									<img
 										src={image}
+										class="card-img-top"
 										alt="Card image cap"
-										className="image-fluid"
+										style={{ height: ' 40rem' }}
 									/>
-									<ListGroup>
-										<ListGroupItem>
-											<CardBody>
-												<CardTitle tag="h5">{title}</CardTitle>
-												<CardText>{description}</CardText>
-											</CardBody>
-										</ListGroupItem>
-										<ListGroupItem>
-											<CardBody>
-												<CardText>Created by: {author.name}</CardText>
-											</CardBody>
-										</ListGroupItem>
-										<ListGroupItem>
-											<CardBody>
-												<CardText className="text-muted">
+									<ul className="list-group">
+										<li className="list-group-item">
+											<div className="card-body">
+												<div className="card-title h3">{title}</div>
+												<div className="card-text">{description}</div>
+											</div>
+										</li>
+										<li className="list-group-item">
+											<div className="card-body">
+												<div className="card-text">
+													Created by: {author.name}
+												</div>
+											</div>
+										</li>
+										<li className="list-group-item">
+											<div className="card-body">
+												<div className="card-text text-muted">
 													Location: {location}
-												</CardText>
-											</CardBody>
-										</ListGroupItem>
-										<ListGroupItem>
-											<CardBody>
-												<CardText>Price: ${price}</CardText>
-											</CardBody>
-										</ListGroupItem>
-										<ListGroupItem>
-											<CardBody>
+												</div>
+											</div>
+										</li>
+										<li className="list-group-item">
+											<div className="card-body">
+												<div className="card-text">Price: ${price}</div>
+											</div>
+										</li>
+										<li className="list-group-item">
+											<div className="card-body">
 												{author.name && author.name === session.user.name ? (
 													<>
 														<Link
 															href={`/campground/${[router.query.id]}/edit`}
 															as={`/campground/${router.query.id}/edit`}>
-															<Button color="dark">
+															<button className="btn btn-dark">
 																<a>Edit</a>
-															</Button>
+															</button>
 														</Link>
-														<Form
+														<form
 															onSubmit={handleDeleteCampground}
 															className="d-inline">
-															<Button className="ms-2" color="danger">
+															<button className="btn btn-danger ms-2">
 																<a>Delete</a>
-															</Button>
-														</Form>
+															</button>
+														</form>
 													</>
 												) : (
 													<></>
 												)}
-											</CardBody>
-										</ListGroupItem>
-									</ListGroup>
-									<CardFooter className="text-muted"> 2 days ago</CardFooter>
-								</Card>
-							</Col>
-							<Col sm={{ size: 4 }}>
+											</div>
+										</li>
+									</ul>
+									<div className="card-footer text-muted"> 2 days ago</div>
+								</div>
+							</div>
+							<div className="col-sm-4">
 								<div className="mt-2">
 									<ReviewForm className="mt-3" userId={session.id} />
 								</div>
@@ -146,43 +132,43 @@ const campground = () => {
 									({ _id, rating, body, author: { name, email } }) => {
 										return (
 											<div key={_id}>
-												<Card className="mt-3">
-													<CardBody>
-														<CardTitle tag="h6">
+												<div className="card mt-3">
+													<div className="card-body">
+														<div className="card-title h6">
 															<p
 																class="starability-result"
 																data-rating={rating}>
 																Rating: {rating} stars
 															</p>
-														</CardTitle>
-														<CardText>{body}</CardText>
-														<Form
+														</div>
+														<div className="card-text">{body}</div>
+														<form
 															onSubmit={handleDeleteReview(_id)}
 															className="text-left">
 															{name ||
 															(email && name) ||
 															email === session.user.name ? (
 																<>
-																	<Button color="danger" size="sm">
+																	<div className="btn btn-danger btn-sm mt-3">
 																		Delete
-																	</Button>
+																	</div>
 																</>
 															) : (
 																<></>
 															)}
-														</Form>
-													</CardBody>
-													<CardFooter className="text-muted">
+														</form>
+													</div>
+													<div className="card-footer text-muted">
 														<small>by: {name || email}</small>
-													</CardFooter>
-												</Card>
+													</div>
+												</div>
 											</div>
 										);
 									}
 								)}
-							</Col>
-						</Row>
-					</Container>
+							</div>
+						</div>
+					</div>
 				</>
 			)}
 		</>
