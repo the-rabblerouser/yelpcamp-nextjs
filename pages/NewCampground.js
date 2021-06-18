@@ -7,6 +7,8 @@ import { useSession } from 'next-auth/client';
 
 import NavigationBar from '../components/NavigationBar';
 
+// imort
+
 const NewCampground = () => {
 	const [session] = useSession();
 
