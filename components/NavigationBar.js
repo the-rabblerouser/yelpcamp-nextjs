@@ -59,11 +59,11 @@ const NavigationBar = () => {
 										</Link>
 									</li>
 									<li className="nav-item">
-										<Link href="/newCampground" as={`/newCampground`}>
+										<Link href="/NewCampground" as={`/NewCampground`}>
 											<a
 												className="nav-link active"
 												aria-current="page"
-												href="/newCampground">
+												href="/NewCampground">
 												New Campground
 											</a>
 										</Link>
